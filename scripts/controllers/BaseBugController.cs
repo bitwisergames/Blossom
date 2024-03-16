@@ -2,17 +2,18 @@ using System.Linq;
 using Blossom.scripts.interfaces;
 using Godot;
 
-namespace Blossom.scripts.controllers.@base;
+namespace Blossom.scripts.controllers;
 
-public abstract class BaseBugController : Node2D, IEnemy
+public abstract partial class BaseBugController : Node2D, IEnemy
 {
+    private Area2D _area2D;
+
     public float CooldownTimer { get; protected set; }
     public int Health { get; protected set; }
 
-    public abstract string SpritePath { get; }
+    public abstract int MaxHealth { get; }
     public abstract int Damage { get; }
     public abstract float Cooldown { get; }
-    public abstract float Radius { get; }
 
     public virtual bool Flying => false;
     public virtual bool Ranged => false;
@@ -39,10 +40,7 @@ public abstract class BaseBugController : Node2D, IEnemy
 
     public override void _Ready()
     {
-        var area2D = GetParent().GetChildren().OfType<Area2D>().First();
-        var shape = area2D.GetChildren().OfType<CollisionShape2D>().First().Shape as CircleShape2D;
-
-        shape!.Radius = Radius;
+        _area2D = GetChild(0).GetChildren().OfType<Area2D>().First();
     }
 
     public override void _Process(double delta)
@@ -50,6 +48,8 @@ public abstract class BaseBugController : Node2D, IEnemy
         CooldownTimer -= (float)delta;
 
         if (CooldownTimer > 0f) return;
+        if (_area2D.GetOverlappingBodies().Count == 0) return;
+
         Attack(HiveController.Instance);
         CooldownTimer = Cooldown;
     }

@@ -1,6 +1,6 @@
 namespace Blossom.scripts.interfaces;
 
-public interface IFlower : IDamaging, ISpritable
+public interface IFlower : IDamaging
 {
     /// <summary>Ignore damaging aspects if true</summary>
     bool Passive { get; }

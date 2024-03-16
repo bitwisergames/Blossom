@@ -1,7 +1,5 @@
 namespace Blossom.scripts.interfaces;
 
-public interface IEnemy : IDamaging, IDamagable, ISpritable
+public interface IEnemy : IDamaging, IDamagable
 {
-    /// <summary>Does this fly</summary>
-    bool Flying { get; }
 }

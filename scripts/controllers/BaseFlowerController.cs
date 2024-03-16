@@ -2,9 +2,9 @@ using System.Linq;
 using Blossom.scripts.interfaces;
 using Godot;
 
-namespace Blossom.scripts.controllers.@base;
+namespace Blossom.scripts.controllers;
 
-public abstract class BaseFlowerController : Node2D, IFlower
+public abstract partial class BaseFlowerController : Node2D, IFlower
 {
     private Area2D _area2D;
 

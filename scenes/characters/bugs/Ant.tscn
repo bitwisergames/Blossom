@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0876tpp0aydc"]
+[gd_scene load_steps=7 format=3 uid="uid://d1662spr56hhc"]
 
-[ext_resource type="Script" path="res://scripts/components/MovementComponent.cs" id="1_6djjv"]
-[ext_resource type="Texture2D" uid="uid://c3arkt36xijrt" path="res://assets/sprites/bugs/Ant.png" id="2_lqyx3"]
+[ext_resource type="Script" path="res://scripts/components/MovementComponent.cs" id="1_lscuy"]
+[ext_resource type="Texture2D" uid="uid://c3arkt36xijrt" path="res://assets/sprites/bugs/Ant.png" id="2_hjyiy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ks5se"]
 size = Vector2(28, 24)
@@ -25,33 +25,35 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f4yt1"]
 _data = {
-"Walk": SubResource("Animation_3ak73")
+"Move": SubResource("Animation_3ak73")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vplml"]
 radius = 22.0
 
-[node name="Bug" type="CharacterBody2D"]
+[node name="Ant" type="Node2D"]
+
+[node name="Body" type="CharacterBody2D" parent="."]
 collision_layer = 2
 motion_mode = 1
-script = ExtResource("1_6djjv")
+script = ExtResource("1_lscuy")
 
-[node name="Collider" type="CollisionShape2D" parent="."]
+[node name="Collider" type="CollisionShape2D" parent="Body"]
 shape = SubResource("RectangleShape2D_ks5se")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="Body"]
 position = Vector2(-2, -4)
-texture = ExtResource("2_lqyx3")
+texture = ExtResource("2_hjyiy")
 hframes = 3
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
 root_node = NodePath("../Sprite")
 libraries = {
 "": SubResource("AnimationLibrary_f4yt1")
 }
 
-[node name="Range" type="Area2D" parent="."]
+[node name="Range" type="Area2D" parent="Body"]
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Range"]
 shape = SubResource("CircleShape2D_vplml")
