@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://c21kcxcyrst1x"]
+
+[ext_resource type="Texture2D" uid="uid://cp0251hg0xb6t" path="res://assets/sprites/Hive.png" id="1_08ntl"]
+[ext_resource type="Script" path="res://scripts/controllers/HiveController.cs" id="2_ncaqy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rl1am"]
+radius = 70.0
+
+[node name="Hive" type="Sprite2D"]
+texture = ExtResource("1_08ntl")
+script = ExtResource("2_ncaqy")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_rl1am")
