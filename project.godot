@@ -24,6 +24,10 @@ window/size/viewport_height=1024
 
 project/assembly_name="Blossom"
 
+[editor_plugins]
+
+enabled=PackedStringArray()
+
 [input]
 
 Main={

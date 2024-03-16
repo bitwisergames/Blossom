@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxgvl0vshy3l4"]
+
+[ext_resource type="Texture2D" uid="uid://b88ekiwv0xtb8" path="res://assets/sprites/flowers/Gladiolus.png" id="1_2r4p8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s784k"]
+radius = 200.0
+
+[node name="Flower" type="Node2D"]
+position = Vector2(0, -41)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_2r4p8")
+hframes = 4
+frame = 3
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_s784k")

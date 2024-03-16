@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
 using Blossom.scripts.components;
-using Blossom.scripts.controllers;
+using Blossom.scripts.controllers.@base;
 using Godot;
 
 namespace Blossom.scripts;
 
-public partial class EnemySpawner : Node2D
+public partial class BugSpawner : Node2D
 {
     private const int Radius = 750;
 
@@ -23,7 +23,7 @@ public partial class EnemySpawner : Node2D
         return new Vector2((float)Mathf.Cos(theta), (float)Mathf.Sin(theta)) * Radius;
     }
 
-    private void SpawnEnemy(EnemyController.EnemyInfo info)
+    private void SpawnEnemy(Variant script)
     {
         var enemyScene = GD.Load<PackedScene>("res://scenes/characters/Enemy.tscn");
 
@@ -40,7 +40,7 @@ public partial class EnemySpawner : Node2D
         var movementComponent = enemyInstance as MovementComponent;
         movementComponent!.TargetPosition = Vector2.Zero;
 
-        enemyInstance.GetChildren().OfType<EnemyController>().First()
+        enemyInstance.GetChildren().OfType<BaseBugController>().First()
             .Setup(info);
     }
 
@@ -59,7 +59,9 @@ public partial class EnemySpawner : Node2D
 
         if (_countdown <= 0)
         {
-            SpawnEnemy(new EnemyController.EnemyInfo(
+            var name = "";
+            var GD.Load<CSharpScript>($"res://scripts/controllers/{name}.cs").New();
+            SpawnEnemy(new BaseBugController.EnemyInfo(
                 1,
                 "res://assets/sprites/Ant.png",
                 1,

@@ -1,8 +1,9 @@
+using Blossom.scripts.interfaces;
 using Godot;
 
 namespace Blossom.scripts.controllers;
 
-public partial class HiveController : Sprite2D
+public partial class HiveController : Sprite2D, IDamagable, IDamaging
 {
     public int Health { get; private set; } = 100;
 

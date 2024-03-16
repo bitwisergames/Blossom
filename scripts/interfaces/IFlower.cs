@@ -15,11 +15,11 @@ public interface IFlower : IDamaging, ISpritable
 
     /// <summary>-1 to 3, what stage the flower is at</summary>
     /// <remarks>-1 is ground mound</remarks>
-    int Stage { get; set; }
+    int Stage { get; }
 
     /// <summary>The amount of pollen this has</summary>
-    int Pollen { get; set; }
+    int Pollen { get; }
 
     /// <summary>Has this been pollinated this round</summary>
-    bool Pollinated { get; set; }
+    bool Pollinated { get; }
 }

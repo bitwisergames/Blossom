@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://5k8hlswntr5k"]
 
-[ext_resource type="Texture2D" uid="uid://dai8rkgwpsfab" path="res://assets/sprites/GroundSpring.png" id="1_mkb21"]
+[ext_resource type="Texture2D" uid="uid://pxj4bvwyu3yy" path="res://assets/sprites/backgrounds/Spring.png" id="1_q6hvo"]
 [ext_resource type="PackedScene" uid="uid://c21kcxcyrst1x" path="res://scenes/Hive.tscn" id="2_qn0yh"]
 [ext_resource type="Script" path="res://scripts/EnemySpawner.cs" id="2_w4grg"]
 [ext_resource type="Script" path="res://scripts/FlowerSpawner.cs" id="4_a3v2g"]
@@ -8,7 +8,7 @@
 [node name="Level" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
-texture = ExtResource("1_mkb21")
+texture = ExtResource("1_q6hvo")
 
 [node name="Hive" parent="." instance=ExtResource("2_qn0yh")]
 

@@ -1,12 +1,13 @@
 using System.Linq;
 using Blossom.scripts.controllers;
+using Blossom.scripts.controllers.@base;
 using Godot;
 
 namespace Blossom.scripts;
 
 public partial class FlowerSpawner : Node2D
 {
-    private void PlantFlower(FlowerController.FlowerInfo info, Vector2 pos)
+    private void PlantFlower(BaseFlowerController.FlowerInfo info, Vector2 pos)
     {
         var flowerScene = GD.Load<PackedScene>("res://scenes/Flower.tscn");
 
@@ -19,7 +20,7 @@ public partial class FlowerSpawner : Node2D
 
         AddChild(flowerInstance);
 
-        var flowerController = flowerInstance as FlowerController;
+        var flowerController = flowerInstance as BaseFlowerController;
         flowerController!.Setup(info);
     }
 
@@ -33,7 +34,7 @@ public partial class FlowerSpawner : Node2D
     {
         if (Input.IsActionJustPressed("Main"))
         {
-            PlantFlower(new FlowerController.FlowerInfo(
+            PlantFlower(new BaseFlowerController.FlowerInfo(
                     "res://assets/sprites/RedFlower.png",
                     3,
                     1.2f,
