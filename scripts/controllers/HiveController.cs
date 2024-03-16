@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Blossom.scripts.interfaces;
 using Godot;
 
@@ -14,6 +15,14 @@ public partial class HiveController : Sprite2D, IDamagable, IDamaging
     public float CooldownTimer => 2;
     public bool Ranged => false;
 
+    public void Attack(Node2D target)
+    {
+    }
+
+    public void Attack(List<Node2D> targets)
+    {
+    }
+
     public void InflictDamage(int amount)
     {
         Health -= amount;
@@ -21,7 +30,6 @@ public partial class HiveController : Sprite2D, IDamagable, IDamaging
 
     public void Die()
     {
-        throw new System.NotImplementedException();
     }
 
     // Called when the node enters the scene tree for the first time.

@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Godot;
+
 namespace Blossom.scripts.interfaces;
 
 public interface IDamaging
@@ -15,6 +18,9 @@ public interface IDamaging
     /// <remarks>If it's not ranged, it's AOE</remarks>
     bool Ranged { get; }
 
-    /// <summary>Inflict damage on target</summary>
-    void Attack(IDamagable target);
+    /// <summary>Attack single target</summary>
+    void Attack(Node2D target);
+
+    /// <summary>Attack targets in AOE</summary>
+    void Attack(List<Node2D> targets);
 }

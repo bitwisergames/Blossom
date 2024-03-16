@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxgvl0vshy3l4"]
+[gd_scene load_steps=6 format=3 uid="uid://b0ctt2c75wmcn"]
 
-[ext_resource type="Texture2D" uid="uid://b88ekiwv0xtb8" path="res://assets/sprites/flowers/Gladiolus.png" id="1_vyrly"]
+[ext_resource type="Texture2D" uid="uid://kb04kou071uu" path="res://assets/sprites/flowers/Lilac.png" id="1_gm3x5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s784k"]
-radius = 200.0
 
 [sub_resource type="Animation" id="Animation_eudek"]
 resource_name = "Attack"
@@ -49,7 +48,8 @@ _data = {
 [node name="Body" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="Body"]
-texture = ExtResource("1_vyrly")
+rotation = -0.0872665
+texture = ExtResource("1_gm3x5")
 offset = Vector2(0, -40)
 hframes = 4
 frame = 3

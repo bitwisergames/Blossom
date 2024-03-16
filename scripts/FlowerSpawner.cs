@@ -25,7 +25,7 @@ public partial class FlowerSpawner : Node2D
         _rand = new Random();
 
         // Loop through folder and add packed scenes
-        /*const string rootPath = "res://scenes/characters/flowers";
+        const string rootPath = "res://scenes/characters/flowers/";
 
         using var dir = DirAccess.Open(rootPath);
 
@@ -37,7 +37,7 @@ public partial class FlowerSpawner : Node2D
             _flowerScenes.Add(GD.Load<PackedScene>(rootPath + fileName));
 
             fileName = dir.GetNext();
-        }*/
+        }
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

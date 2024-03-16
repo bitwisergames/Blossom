@@ -1,6 +1,6 @@
 using Blossom.scripts.interfaces;
 
-namespace Blossom.scripts.controllers;
+namespace Blossom.scripts.controllers.bugs;
 
 public partial class AntController : BaseBugController
 {

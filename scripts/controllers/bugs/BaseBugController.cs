@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
 using Blossom.scripts.interfaces;
 using Godot;
 
-namespace Blossom.scripts.controllers;
+namespace Blossom.scripts.controllers.bugs;
 
 public abstract partial class BaseBugController : Node2D, IEnemy
 {
@@ -17,6 +18,16 @@ public abstract partial class BaseBugController : Node2D, IEnemy
 
     public virtual bool Flying => false;
     public virtual bool Ranged => false;
+
+    public void Attack(Node2D target)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Attack(List<Node2D> targets)
+    {
+        throw new System.NotImplementedException();
+    }
 
     public virtual void Attack(IDamagable target)
     {
@@ -48,9 +59,11 @@ public abstract partial class BaseBugController : Node2D, IEnemy
         CooldownTimer -= (float)delta;
 
         if (CooldownTimer > 0f) return;
+
         if (_area2D.GetOverlappingBodies().Count == 0) return;
 
-        Attack(HiveController.Instance);
+        //Attack(HiveController.Instance);
+
         CooldownTimer = Cooldown;
     }
 }
