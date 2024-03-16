@@ -31,6 +31,18 @@ public partial class EnemyController : Node2D
         shape!.Radius = info.AttackRadius;
     }
 
+    public void InflictDamage(int amount)
+    {
+        _health -= amount;
+
+        if (_health <= 0)
+        {
+            GD.Print("Bug ded");
+
+            GetParent().QueueFree();
+        }
+    }
+
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {

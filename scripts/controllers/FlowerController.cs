@@ -13,11 +13,16 @@ public partial class FlowerController : Node2D
 
     private Area2D _area2D;
 
-    private List<EnemyController> _enemiesInRange;
+    private List<CharacterBody2D> _enemiesInRange = new();
 
     public void OnBodyEntered(Node2D body)
     {
-        GD.Print(body);
+        _enemiesInRange.Add(body as CharacterBody2D);
+    }
+
+    public void OnBodyExited(Node2D body)
+    {
+        _enemiesInRange.Remove(body as CharacterBody2D);
     }
 
     public void Setup(FlowerInfo info)
@@ -38,6 +43,26 @@ public partial class FlowerController : Node2D
     {
         if (_attackCooldown <= 0)
         {
+            // Find enemy closest to the hive
+            var minDistance = float.PositiveInfinity;
+            var index = -1;
+
+            for (var i = 0; i < _enemiesInRange.Count; ++i)
+            {
+                var distance = _enemiesInRange[i].Position.DistanceSquaredTo(HiveController.Instance.Position);
+
+                if (distance < minDistance)
+                {
+                    index = i;
+                    minDistance = distance;
+                }
+            }
+
+            if (index < 0) return;
+
+            _enemiesInRange[index].GetChildren().OfType<EnemyController>().First().InflictDamage(_damage);
+            _enemiesInRange.RemoveAt(index);
+
             _attackCooldown = _attackCooldownMax;
         }
 
