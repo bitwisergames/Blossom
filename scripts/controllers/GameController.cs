@@ -12,7 +12,6 @@ public partial class GameController : Node2D
 
     private int _enemiesAllowance;
     private int _enemiesSpawnedCost;
-    private int _waveNumber = 1;
 
     private List<PackedScene> _bugScenes = [];
 
@@ -25,6 +24,7 @@ public partial class GameController : Node2D
     public bool WaveReadyToStart { get; private set; } = true;
 
     public int Pollen { get; private set; }
+    public int WaveNumber = 1;
 
     private List<PackedScene> GetScenesFromFolder(string rootPath)
     {
@@ -45,9 +45,9 @@ public partial class GameController : Node2D
         return toReturn;
     }
 
-    private int EnemyAllowanceByLevel() => Mathf.FloorToInt((Math.Pow(_waveNumber, 2) / 3) + 10);
+    private int EnemyAllowanceByLevel() => Mathf.FloorToInt((Math.Pow(WaveNumber, 2) / 3) + 10);
 
-    private float TimeBetweenSpawnsByLevel() => 20f / (_waveNumber + 9f);
+    private float TimeBetweenSpawnsByLevel() => 20f / (WaveNumber + 9f);
 
     private void SpawnBug()
     {
@@ -56,7 +56,6 @@ public partial class GameController : Node2D
 
         if (_enemiesSpawnedCost >= _enemiesAllowance)
         {
-            ++_waveNumber;
             _spawnTimer.Stop();
             _spawnTimer.QueueFree();
         }
@@ -139,5 +138,7 @@ public partial class GameController : Node2D
 
         HiveController.Instance.SetReady();
         WaveReadyToStart = true;
+        ++WaveNumber;
+        ShopController.Instance.ShuffleCards(true);
     }
 }

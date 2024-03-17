@@ -27,7 +27,15 @@ public partial class ShopItemUIController : MarginContainer
     {
         _title.Text = CardInfo.Name;
         _texture.Texture = CardInfo.Texture;
-        _cost.Text = "Cost: " + CardInfo.Cost + " pollen";
+        if (CardInfo.isFree)
+        {
+            _cost.Text = "Cost: 0 pollen";
+        }
+        else
+        {
+            _cost.Text = "Cost: " + CardInfo.Cost + " pollen";
+        }
+
         _description.Text = CardInfo.Description;
     }
 
@@ -44,6 +52,9 @@ public partial class ShopItemUIController : MarginContainer
 
     public void OnButtonUp()
     {
-        GameController.Instance.SetPlantScene(CardInfo.ToSpawn, ClearCard);
+        if (GameController.Instance.SpendPollen(CardInfo.isFree ? 0 : CardInfo.Cost))
+        {
+            GameController.Instance.SetPlantScene(CardInfo.ToSpawn, ClearCard);
+        }
     }
 }

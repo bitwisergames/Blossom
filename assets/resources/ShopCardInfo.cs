@@ -9,4 +9,5 @@ public partial class ShopCardInfo : Resource
     [Export] public string Description;
     [Export] public int Cost;
     [Export] public PackedScene ToSpawn;
+    public bool isFree;
 }

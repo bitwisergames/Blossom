@@ -13,7 +13,10 @@ public partial class ShopController : CanvasLayer
     private bool _lateInit;
     private int _refreshCount = -1;
 
-    private Node shopContainer;
+    private Node _shopContainer;
+    private AnimationPlayer _animationPlayer;
+
+    private bool _isShopOpen;
 
     public int CardsBought = 0;
 
@@ -47,12 +50,25 @@ public partial class ShopController : CanvasLayer
 
         var item = shopContainer.GetChildren().ToList()[shopIndex] as ShopItemUIController;
 
+        card.isFree = GameController.Instance.WaveNumber == 1;
+
         item!.CardInfo = card;
         item.DisplayCard();
     }
 
-    private void ShuffleCards()
+    public void ShuffleCards()
     {
+        ShuffleCards(false);
+    }
+
+    public void ShuffleCards(bool reset)
+    {
+        if (reset)
+        {
+            CardsBought = 0;
+            _refreshCount = 0;
+        }
+
         if (GameController.Instance.SpendPollen(FindCostFromRefreshCount()))
         {
             for (var i = 0; i < 3; ++i)
@@ -63,11 +79,33 @@ public partial class ShopController : CanvasLayer
                 }
                 else
                 {
-                    shopContainer.GetChildren().OfType<ShopItemUIController>().ToList()[i].ClearCard();
+                    _shopContainer.GetChildren().OfType<ShopItemUIController>().ToList()[i].ClearCard();
                 }
             }
 
-            ++_refreshCount;
+            if (!reset)
+                ++_refreshCount;
+        }
+    }
+
+    public void SetIsOpen(bool isOpen)
+    {
+        _isShopOpen = isOpen;
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is not InputEventMouseMotion eventMouseMotion) return;
+        if (!GameController.Instance.WaveReadyToStart) return;
+
+        switch (_isShopOpen)
+        {
+            case false when eventMouseMotion.Position.Y >= 950:
+                _animationPlayer.Play("ShowShop");
+                break;
+            case true when eventMouseMotion.Position.Y < 750:
+                _animationPlayer.Play("HideShop");
+                break;
         }
     }
 
@@ -76,7 +114,9 @@ public partial class ShopController : CanvasLayer
     {
         Instance ??= this;
 
-        shopContainer = GetChild(0).GetChild(0).GetChild(0);
+        _shopContainer = GetChild(0).GetChild(0).GetChild(0);
+        _animationPlayer = GetChildren().OfType<AnimationPlayer>().First();
+        _animationPlayer.Play("HideShop");
 
         _possibleCards = GetCardsFromFolder("res://assets/resources/ShopCards/");
     }
@@ -86,8 +126,7 @@ public partial class ShopController : CanvasLayer
     {
         if (_lateInit) return;
 
-        ShuffleCards();
-
+        ShuffleCards(true);
         _lateInit = true;
     }
 }
