@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dai8rkgwpsfab"
-path="res://.godot/imported/GroundSpring.png-fe3a8241366c946f67da3188376c31fd.ctex"
+uid="uid://ct13dh4qa1abe"
+path="res://.godot/imported/QueenBee.png-a64ba46974bff2ffc33c5f87cac035f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/GroundSpring.png"
-dest_files=["res://.godot/imported/GroundSpring.png-fe3a8241366c946f67da3188376c31fd.ctex"]
+source_file="res://assets/sprites/QueenBee.png"
+dest_files=["res://.godot/imported/QueenBee.png-a64ba46974bff2ffc33c5f87cac035f2.ctex"]
 
 [params]
 

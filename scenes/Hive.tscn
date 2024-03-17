@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c21kcxcyrst1x"]
+[gd_scene load_steps=8 format=3 uid="uid://c21kcxcyrst1x"]
 
 [ext_resource type="Texture2D" uid="uid://cp0251hg0xb6t" path="res://assets/sprites/Hive.png" id="1_08ntl"]
 [ext_resource type="Script" path="res://scripts/controllers/HiveController.cs" id="2_ncaqy"]
@@ -6,11 +6,114 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_rl1am"]
 radius = 70.0
 
-[node name="Hive" type="Sprite2D"]
-texture = ExtResource("1_08ntl")
+[sub_resource type="Animation" id="Animation_wpclw"]
+resource_name = "Ready"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hive:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0523599, 0.0, 0.0523599, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hive:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.05, 1.05), Vector2(0.95, 0.95)]
+}
+
+[sub_resource type="Animation" id="Animation_rryd1"]
+resource_name = "Idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hive:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hive:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.01, 1.01), Vector2(0.99, 0.99)]
+}
+
+[sub_resource type="Animation" id="Animation_8783c"]
+resource_name = "Attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hive:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hive:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.499628),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_konro"]
+_data = {
+"Attack": SubResource("Animation_8783c"),
+"Idle": SubResource("Animation_rryd1"),
+"Ready": SubResource("Animation_wpclw")
+}
+
+[node name="Hive" type="Node2D"]
 script = ExtResource("2_ncaqy")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("CircleShape2D_rl1am")
+
+[node name="Hive" type="Sprite2D" parent="."]
+position = Vector2(0, 64)
+scale = Vector2(0.999803, 0.999803)
+texture = ExtResource("1_08ntl")
+offset = Vector2(0, -64)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_konro")
+}

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7supk17hgmnr"
-path="res://.godot/imported/RedFlower.png-a1c8ad1d09b8cbfd94169c55929d5630.ctex"
+uid="uid://cnadbnrtmt42v"
+path="res://.godot/imported/DirtMound.png-bf4342fb8133ea202ee1f82cac7d3e52.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/RedFlower.png"
-dest_files=["res://.godot/imported/RedFlower.png-a1c8ad1d09b8cbfd94169c55929d5630.ctex"]
+source_file="res://assets/sprites/DirtMound.png"
+dest_files=["res://.godot/imported/DirtMound.png-bf4342fb8133ea202ee1f82cac7d3e52.ctex"]
 
 [params]
 

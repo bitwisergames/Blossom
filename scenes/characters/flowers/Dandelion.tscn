@@ -1,48 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjvrqug4fgybi"]
+[gd_scene load_steps=5 format=3 uid="uid://cjvrqug4fgybi"]
 
 [ext_resource type="Script" path="res://scripts/controllers/flowers/DandelionFlowerController.cs" id="1_fi63j"]
 [ext_resource type="Texture2D" uid="uid://c531boc4v1lqt" path="res://assets/sprites/flowers/Dandelion.png" id="1_rult5"]
+[ext_resource type="AnimationLibrary" uid="uid://cxulg0r14raxk" path="res://assets/animations/FlowerAnimations.res" id="3_eq6t5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s784k"]
 radius = 64.0
-
-[sub_resource type="Animation" id="Animation_eudek"]
-resource_name = "Attack"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.2, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, -0.523599, 0.349066]
-}
-
-[sub_resource type="Animation" id="Animation_11cml"]
-resource_name = "Sway"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-0.0872665, 0.0872665]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_e3pmc"]
-_data = {
-"Attack": SubResource("Animation_eudek"),
-"Sway": SubResource("Animation_11cml")
-}
 
 [node name="Flower" type="Node2D"]
 script = ExtResource("1_fi63j")
@@ -64,5 +27,5 @@ shape = SubResource("CircleShape2D_s784k")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
 libraries = {
-"": SubResource("AnimationLibrary_e3pmc")
+"FlowerAnimations": ExtResource("3_eq6t5")
 }

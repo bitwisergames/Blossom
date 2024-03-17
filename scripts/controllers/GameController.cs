@@ -55,6 +55,7 @@ public partial class GameController : Node2D
             _spawnTimer.Stop();
             _spawnTimer.QueueFree();
 
+            HiveController.Instance.SetReady();
             WaveReadyToStart = true;
         }
     }

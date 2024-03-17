@@ -33,9 +33,10 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
 
         var projectile = projectileScene!.GetChildren().OfType<Projectile>().First();
         projectile.Setup(target, 1);
-
-        _animPlayer.Play("Attack");
-        _animPlayer.Queue("Sway");
+        _animPlayer.Play(target.GlobalPosition.X > GlobalPosition.X
+            ? "FlowerAnimations/AttackRight"
+            : "FlowerAnimations/AttackLeft");
+        _animPlayer.Queue("FlowerAnimations/Idle");
     }
 
     public virtual void Attack(List<Node2D> targets)
@@ -47,6 +48,9 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
             var parent = target.GetParent();
             (parent as IDamagable)!.InflictDamage(Damage);
         }
+
+        _animPlayer.Play("FlowerAnimations/AttackBoth");
+        _animPlayer.Queue("FlowerAnimations/Idle");
     }
 
     public virtual int Damage => 0;
@@ -66,7 +70,7 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
         Area = GetChild(0).GetChildren().OfType<Area2D>().First();
         _animPlayer = GetChild(0).GetChildren().OfType<AnimationPlayer>().First();
 
-        _animPlayer?.Play("Sway");
+        _animPlayer?.Play("FlowerAnimations/Idle");
     }
 
     public override void _Process(double delta)
