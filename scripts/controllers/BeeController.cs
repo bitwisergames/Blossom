@@ -71,6 +71,7 @@ public partial class BeeController : Node2D, IMoveable
     public override void _Ready()
     {
         _body = GetChild<CharacterBody2D>(0);
+        GetChild(0).GetChildren().OfType<AnimationPlayer>().First().Play("BugAnimations/Fly");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

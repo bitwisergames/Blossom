@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cl57cc1a3drn1"]
+[gd_scene load_steps=6 format=3 uid="uid://cspb0raetx0vk"]
 
 [ext_resource type="Script" path="res://scripts/controllers/BeeController.cs" id="1_7xxuy"]
 [ext_resource type="Script" path="res://scripts/components/MovementComponent.cs" id="1_o086v"]
 [ext_resource type="Texture2D" uid="uid://ck0agx5jtfp2h" path="res://assets/sprites/Bee.png" id="2_bmncc"]
-[ext_resource type="AnimationLibrary" uid="uid://dh2jxjqa525y6" path="res://assets/animations/BugAnimations.res" id="3_mbmou"]
+[ext_resource type="AnimationLibrary" uid="uid://b7wyfdjcekx5g" path="res://assets/animations/BugAnimations.res" id="3_mbmou"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ks5se"]
 size = Vector2(32, 16)
@@ -21,8 +21,9 @@ position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_ks5se")
 
 [node name="Sprite" type="Sprite2D" parent="Body"]
+position = Vector2(0, -1.88051)
 texture = ExtResource("2_bmncc")
-hframes = 2
+hframes = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
 root_node = NodePath("../Sprite")

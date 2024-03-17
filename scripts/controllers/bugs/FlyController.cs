@@ -7,4 +7,5 @@ public partial class FlyController : BaseBugController
     public override int Damage => 2;
     public override float Cooldown => 1.2f;
     public override bool Flying => true;
+    public override float Speed => 6500f;
 }

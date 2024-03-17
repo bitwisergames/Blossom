@@ -23,6 +23,7 @@ script = ExtResource("1_ggx3o")
 shape = SubResource("RectangleShape2D_ks5se")
 
 [node name="Sprite" type="Sprite2D" parent="Body"]
+position = Vector2(0, -2.15409)
 texture = ExtResource("2_cgpo0")
 hframes = 3
 

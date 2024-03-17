@@ -15,7 +15,7 @@ public interface IFlower : IDamaging
 
     /// <summary>How many pollinations is needed for upgrading</summary>
     /// <remarks>Should be a 3 long int array</remarks>
-    int[] Upgrade { get; }
+    int[] UpgradeCost { get; }
 
     /// <summary>-1 to 3, what stage the flower is at</summary>
     /// <remarks>-1 is ground mound</remarks>

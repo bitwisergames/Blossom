@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://ca70mpcnd0loo"]
 
-[ext_resource type="Texture2D" uid="uid://d3b5kexmnir8r" path="res://icon.svg" id="1_1uule"]
 [ext_resource type="Script" path="res://scripts/components/MovementComponent.cs" id="1_d6ne4"]
 [ext_resource type="Script" path="res://scripts/controllers/ProjectileController.cs" id="1_stqbi"]
+[ext_resource type="Texture2D" uid="uid://ldh5g25cty0f" path="res://assets/sprites/flowers/projectiles/Projectile.png" id="3_2mdif"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_anlkc"]
-radius = 13.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_p05au"]
+resource_local_to_scene = true
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_stqbi")
@@ -15,11 +15,10 @@ motion_mode = 1
 script = ExtResource("1_d6ne4")
 
 [node name="Sprite2D" type="Sprite2D" parent="Projectile"]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_1uule")
+texture = ExtResource("3_2mdif")
 
-[node name="Area2D" type="Area2D" parent="Projectile"]
+[node name="Collision" type="Area2D" parent="Projectile"]
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile/Area2D"]
-shape = SubResource("CircleShape2D_anlkc")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile/Collision"]
+shape = SubResource("CircleShape2D_p05au")

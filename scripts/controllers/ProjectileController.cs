@@ -9,6 +9,9 @@ public partial class ProjectileController : Node2D, IMoveable
 {
     private Node2D _target;
     private int _damage;
+    private bool _aoe;
+    private float _aoeRange;
+    private Area2D _area;
 
     private Timer _lifetimeTimer;
 
@@ -18,20 +21,32 @@ public partial class ProjectileController : Node2D, IMoveable
 
     private void DamageTarget(Node2D body)
     {
-        (body.GetParent() as BaseBugController)!.InflictDamage(_damage);
+        (body.GetParent() as IDamagable)!.InflictDamage(_damage);
+        if (_aoe)
+        {
+            (_area.GetChild<CollisionShape2D>(0).Shape as CircleShape2D)!.Radius = _aoeRange;
+            var enemies = _area.GetOverlappingBodies();
+            foreach (var enemy in enemies)
+            {
+                (enemy.GetParent() as IDamagable)!.InflictDamage(_damage);
+            }
+        }
+
         DeleteProjectile();
     }
 
     private void DeleteProjectile()
     {
         QueueFree();
-        GetChild(0).GetChildren().OfType<Area2D>().First().BodyEntered -= DamageTarget;
+        _area.BodyEntered -= DamageTarget;
     }
 
-    public void Setup(Node2D target, int damage, float speed)
+    public void Setup(Node2D target, int damage, float speed, bool aoe = false, float aoeRange = 0.01f)
     {
         _target = target;
         _damage = damage;
+        _aoe = aoe;
+        _aoeRange = aoeRange;
         Speed = speed;
 
         _lifetimeTimer = new Timer();
@@ -44,7 +59,8 @@ public partial class ProjectileController : Node2D, IMoveable
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        GetChild(0).GetChildren().OfType<Area2D>().First().BodyEntered += DamageTarget;
+        _area = GetChild(0).GetChildren().OfType<Area2D>().First();
+        _area.BodyEntered += DamageTarget;
     }
 
     public override void _PhysicsProcess(double delta)

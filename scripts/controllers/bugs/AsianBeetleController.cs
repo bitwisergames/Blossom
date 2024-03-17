@@ -7,4 +7,5 @@ public partial class AsianBeetleController : BaseBugController
     public override int Damage => 2;
     public override float Cooldown => 1.5f;
     public override bool Flying => true;
+    public override float Speed => 5500f;
 }
