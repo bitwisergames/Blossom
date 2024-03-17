@@ -46,8 +46,13 @@ public partial class HiveController : Sprite2D, IDamagable, IDamaging
         Instance ??= this;
     }
 
-    public void Attack(IDamagable target)
+    public override void _UnhandledInput(InputEvent @event)
     {
-        target.InflictDamage(Damage);
+        if (!GameController.Instance.WaveReadyToStart) return;
+        if (@event is not InputEventMouseButton mouseEvent || !mouseEvent.IsReleased()) return;
+        if (mouseEvent.ButtonIndex != MouseButton.Left) return;
+        if (GetGlobalMousePosition().DistanceSquaredTo(Vector2.Zero) > 4900) return;
+
+        GameController.Instance.StartWave();
     }
 }

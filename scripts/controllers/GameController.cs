@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace Blossom.scripts.controllers;
@@ -7,10 +8,10 @@ namespace Blossom.scripts.controllers;
 public partial class GameController : Node2D
 {
     private Timer _spawnTimer;
-    private Timer _waveTimer;
 
     private int _enemiesAllowance;
-    private int _enemiesSpawnedCost = 0;
+    private int _enemiesSpawnedCost;
+    private int _waveNumber = 1;
 
     private List<PackedScene> _bugScenes = [];
 
@@ -18,6 +19,7 @@ public partial class GameController : Node2D
 
     public static GameController Instance;
     public Random Rand;
+    public bool WaveReadyToStart { get; private set; } = true;
 
     private List<PackedScene> GetScenesFromFolder(string rootPath)
     {
@@ -38,6 +40,10 @@ public partial class GameController : Node2D
         return toReturn;
     }
 
+    private int EnemyAllowanceByLevel() => Mathf.FloorToInt((Math.Pow(_waveNumber, 2) / 3) + 10);
+
+    private float TimeBetweenSpawnsByLevel() => 20f / (_waveNumber + 9f);
+
     private void SpawnBug()
     {
         BugSpawner.Instance.SpawnBug(_bugScenes[Rand.Next(_bugScenes.Count)]);
@@ -45,9 +51,11 @@ public partial class GameController : Node2D
 
         if (_enemiesSpawnedCost >= _enemiesAllowance)
         {
+            ++_waveNumber;
             _spawnTimer.Stop();
             _spawnTimer.QueueFree();
-            StartWave(10);
+
+            WaveReadyToStart = true;
         }
     }
 
@@ -64,31 +72,29 @@ public partial class GameController : Node2D
         }
     }
 
-    private void StartWave(int antEquivalent)
-    {
-        _enemiesAllowance = antEquivalent;
-        _enemiesSpawnedCost = 0;
-
-        _waveTimer = new Timer();
-        _waveTimer.WaitTime = 20;
-        _waveTimer.OneShot = true;
-        _waveTimer.Timeout += StartSpawningEnemies;
-
-        AddChild(_waveTimer);
-        _waveTimer.Start();
-    }
-
     private void StartSpawningEnemies()
     {
         SpawnBug();
 
         _spawnTimer = new Timer();
-        _spawnTimer.WaitTime = 2;
+        _spawnTimer.WaitTime = TimeBetweenSpawnsByLevel();
         _spawnTimer.OneShot = false;
         _spawnTimer.Timeout += SpawnBug;
 
         AddChild(_spawnTimer);
         _spawnTimer.Start();
+    }
+
+    public void StartWave()
+    {
+        if (!WaveReadyToStart) return;
+
+        WaveReadyToStart = false;
+
+        _enemiesAllowance = EnemyAllowanceByLevel();
+        _enemiesSpawnedCost = 0;
+
+        StartSpawningEnemies();
     }
 
     public void SetPlantScene(PackedScene plantScene)
@@ -103,8 +109,6 @@ public partial class GameController : Node2D
         Rand = new Random();
 
         _bugScenes = GetScenesFromFolder("res://scenes/characters/bugs/");
-
-        StartWave(10);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
