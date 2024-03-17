@@ -8,7 +8,7 @@ public partial class ShopController : CanvasLayer
 {
     public static ShopController Instance;
 
-    private List<ShopCardInfo> _possibleCards;
+    [Export] private ShopCardInfo[] _possibleCards;
 
     private bool _lateInit;
     private int _refreshCount = -1;
@@ -37,25 +37,6 @@ public partial class ShopController : CanvasLayer
     private int FindCostOfBeeUpgrade()
     {
         return Mathf.CeilToInt(Mathf.Pow(2, 2 * GameController.Instance.BeeLevel) + 6);
-    }
-
-    private List<ShopCardInfo> GetCardsFromFolder(string rootPath)
-    {
-        List<ShopCardInfo> toReturn = [];
-
-        using var dir = DirAccess.Open(rootPath);
-
-        dir.ListDirBegin();
-        var fileName = dir.GetNext();
-
-        while (fileName != "")
-        {
-            toReturn.Add(GD.Load<ShopCardInfo>(rootPath + fileName));
-
-            fileName = dir.GetNext();
-        }
-
-        return toReturn;
     }
 
     private void SetCard(int shopIndex, ShopCardInfo card)
@@ -131,7 +112,7 @@ public partial class ShopController : CanvasLayer
             {
                 if (i < 3 - CardsBought)
                 {
-                    SetCard(i, _possibleCards[GameController.Instance.Rand.Next(_possibleCards.Count)]);
+                    SetCard(i, _possibleCards[GameController.Instance.Rand.Next(_possibleCards.Length)]);
                 }
                 else
                 {
@@ -192,8 +173,6 @@ public partial class ShopController : CanvasLayer
         _shopContainer = GetChild(0).GetChild(0).GetChild(0);
         _animationPlayer = GetChildren().OfType<AnimationPlayer>().First();
         _animationPlayer.Play("HideShop");
-
-        _possibleCards = GetCardsFromFolder("res://assets/resources/ShopCards/");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

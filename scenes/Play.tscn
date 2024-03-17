@@ -8,7 +8,7 @@
 [ext_resource type="Resource" uid="uid://dlmx4jgxngquq" path="res://assets/resources/BugSpawns/AsianBeetle.tres" id="4_y2ci2"]
 [ext_resource type="Resource" uid="uid://0u4s1hkl0c1r" path="res://assets/resources/BugSpawns/Spider.tres" id="5_116kq"]
 [ext_resource type="Resource" uid="uid://cyqlfmdm61bx4" path="res://assets/resources/BugSpawns/Fly.tres" id="6_6hvr5"]
-[ext_resource type="PackedScene" uid="uid://dpvhrd12ujj5e" path="res://scenes/Hud.tscn" id="9_cpacp"]
+[ext_resource type="PackedScene" path="res://scenes/Hud.tscn" id="9_cpacp"]
 
 [node name="Play" type="Node2D"]
 script = ExtResource("1_s0uvk")
