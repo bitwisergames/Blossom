@@ -24,7 +24,8 @@ public partial class GameController : Node2D
     public Random Rand;
     public bool WaveReadyToStart { get; private set; } = true;
 
-    public int numOfBees = 1;
+    public int NumOfBees = 1;
+    public int BeeLevel = 1;
 
     public int Pollen { get; private set; }
     public int WaveNumber = 1;
@@ -101,6 +102,18 @@ public partial class GameController : Node2D
         _enemiesSpawnedCost = 0;
 
         StartSpawningEnemies();
+
+        var level = GameController.Instance.GetNode<Node2D>("Level");
+        var flowerController = level.GetNode<Node2D>("FlowerController");
+        var options = flowerController.GetChildren();
+
+        foreach (var option in options)
+        {
+            var flower = option as BaseFlowerController;
+            flower?.ResetPollination();
+
+            GD.Print("Resetting");
+        }
     }
 
     public void SetPlantScene(PackedScene plantScene, Action onPlantCallback)
@@ -133,15 +146,5 @@ public partial class GameController : Node2D
         WaveReadyToStart = true;
         ++WaveNumber;
         ShopController.Instance.ShuffleCards(true);
-
-        var level = GameController.Instance.GetNode<Node2D>("Level");
-        var flowerController = level.GetNode<Node2D>("FlowerController");
-        var options = flowerController.GetChildren();
-
-        foreach (var option in options)
-        {
-            var flower = option as BaseFlowerController;
-            flower?.ResetPollination();
-        }
     }
 }

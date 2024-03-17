@@ -18,6 +18,7 @@ public partial class ShopController : CanvasLayer
     private Label _pollenLabel;
     private Button _refreshButton;
     private Button _buyBeeButton;
+    private Button _upgradeBeeButton;
 
     private bool _isShopOpen;
 
@@ -30,7 +31,12 @@ public partial class ShopController : CanvasLayer
 
     private int FindCostOfNewBee()
     {
-        return Mathf.CeilToInt(Mathf.Pow(2, GameController.Instance.numOfBees));
+        return Mathf.CeilToInt(Mathf.Pow(2, GameController.Instance.NumOfBees));
+    }
+
+    private int FindCostOfBeeUpgrade()
+    {
+        return 0; //Mathf.CeilToInt(Mathf.Pow(2, 2 * GameController.Instance.BeeLevel) + 6);
     }
 
     private List<ShopCardInfo> GetCardsFromFolder(string rootPath)
@@ -72,15 +78,37 @@ public partial class ShopController : CanvasLayer
     public void UpdateAddBeeDisplay()
     {
         _buyBeeButton.Text = $"+1 Bee ({FindCostOfNewBee()})";
+        UpdatePollenCounter();
+    }
+
+    public void UpdateBetterBeeDisplay()
+    {
+        _upgradeBeeButton.Text = $"Better Bees ({FindCostOfBeeUpgrade()})";
+        UpdatePollenCounter();
+    }
+
+    public void UpdateRefreshDisplay()
+    {
+        _refreshButton.Text = "Refresh (" + FindCostOfRefresh() + ")";
+        UpdatePollenCounter();
     }
 
     public void AddBee()
     {
         if (GameController.Instance.SpendPollen(FindCostOfNewBee()))
         {
-            GameController.Instance.numOfBees += 1;
-            UpdatePollenCounter();
+            ++GameController.Instance.NumOfBees;
             UpdateAddBeeDisplay();
+        }
+    }
+
+    public void UpgradeBees()
+    {
+        if (GameController.Instance.SpendPollen(FindCostOfBeeUpgrade()))
+        {
+            ++GameController.Instance.BeeLevel;
+
+            UpdateBetterBeeDisplay();
         }
     }
 
@@ -99,7 +127,6 @@ public partial class ShopController : CanvasLayer
 
         if (GameController.Instance.SpendPollen(FindCostOfRefresh()))
         {
-            UpdatePollenCounter();
             for (var i = 0; i < 3; ++i)
             {
                 if (i < 3 - CardsBought)
@@ -115,13 +142,30 @@ public partial class ShopController : CanvasLayer
             if (!reset)
                 ++_refreshCount;
 
-            _refreshButton.Text = "Refresh (" + FindCostOfRefresh() + ")";
+            UpdateRefreshDisplay();
         }
     }
 
     public void SetIsOpen(bool isOpen)
     {
         _isShopOpen = isOpen;
+    }
+
+    private void LateLoad()
+    {
+        _pollenLabel = GetNode<Label>("Panel/Panel/Label");
+        UpdatePollenCounter();
+
+        _refreshButton = GetNode<Button>("Panel/MarginContainer/ShopItemContainer/VBoxContainer/Refresh Shop");
+        UpdateRefreshDisplay();
+
+        _buyBeeButton = GetNode<Button>("Panel/MarginContainer/ShopItemContainer/VBoxContainer/Buy Bee");
+        UpdateAddBeeDisplay();
+
+        _upgradeBeeButton = GetNode<Button>("Panel/MarginContainer/ShopItemContainer/VBoxContainer/Better Bees");
+        UpdateBetterBeeDisplay();
+
+        ShuffleCards(true);
     }
 
     public override void _Input(InputEvent @event)
@@ -150,15 +194,6 @@ public partial class ShopController : CanvasLayer
         _animationPlayer.Play("HideShop");
 
         _possibleCards = GetCardsFromFolder("res://assets/resources/ShopCards/");
-
-        _pollenLabel = GetNode<Label>("Panel/Panel/Label");
-        _pollenLabel.Text = "0 Pollen";
-
-        _refreshButton = GetNode<Button>("Panel/MarginContainer/ShopItemContainer/VBoxContainer/Refresh Shop");
-        _refreshButton.Text = "Refresh (0)";
-
-        _buyBeeButton = GetNode<Button>("Panel/MarginContainer/ShopItemContainer/VBoxContainer/Buy Bee");
-        _buyBeeButton.Text = "+1 Bee (2)";
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -166,7 +201,7 @@ public partial class ShopController : CanvasLayer
     {
         if (_lateInit) return;
 
-        ShuffleCards(true);
+        LateLoad();
         _lateInit = true;
     }
 }

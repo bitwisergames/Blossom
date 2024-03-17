@@ -150,7 +150,7 @@ text = "+1 Bee (2)"
 
 [node name="Better Bees" type="Button" parent="Panel/MarginContainer/ShopItemContainer/VBoxContainer"]
 layout_mode = 2
-text = "Better Bees (8)L
+text = "Better Bees (8)
 "
 
 [node name="Panel" type="Panel" parent="Panel"]
@@ -185,3 +185,4 @@ libraries = {
 
 [connection signal="pressed" from="Panel/MarginContainer/ShopItemContainer/VBoxContainer/Refresh Shop" to="." method="ShuffleCards"]
 [connection signal="pressed" from="Panel/MarginContainer/ShopItemContainer/VBoxContainer/Buy Bee" to="." method="AddBee"]
+[connection signal="pressed" from="Panel/MarginContainer/ShopItemContainer/VBoxContainer/Better Bees" to="." method="UpgradeBees"]

@@ -10,6 +10,8 @@ public partial class BeeController : Node2D, IMoveable
     private CharacterBody2D _body;
     private BaseFlowerController _flowerController;
 
+    private int _flowersPollinated;
+
     public float Speed => 3500f;
     public bool Flying => true;
     public Vector2 TargetPosition { get; private set; }
@@ -18,12 +20,23 @@ public partial class BeeController : Node2D, IMoveable
     {
         if (TargetPosition != Vector2.Zero)
         {
-            TargetPosition = Vector2.Zero;
+            if (_flowerController.Pollinate())
+            {
+                GameController.Instance.AddPollen(_flowerController.Income[_flowerController.Stage]);
+                ShopController.Instance.UpdatePollenCounter();
 
-            GameController.Instance.AddPollen(_flowerController.Income[_flowerController.Stage]);
-            ShopController.Instance.UpdatePollenCounter();
+                ++_flowersPollinated;
+            }
 
-            _flowerController.Pollinate();
+            if (_flowersPollinated == GameController.Instance.BeeLevel)
+            {
+                TargetPosition = Vector2.Zero;
+
+                _flowersPollinated = 0;
+                return;
+            }
+
+            FindFlowerToPollinate();
         }
         else
         {
@@ -36,12 +49,22 @@ public partial class BeeController : Node2D, IMoveable
         var level = GameController.Instance.GetNode<Node2D>("Level");
         var flowerController = level.GetNode<Node2D>("FlowerController");
         var options = flowerController.GetChildren();
+        options.Shuffle();
 
-        var selectedOption = (Node2D)options[GameController.Instance.Rand.Next(options.Count)];
+        var destination = Vector2.Zero;
 
-        _flowerController = selectedOption as BaseFlowerController;
+        for (int i = 0; i < options.Count; ++i)
+        {
+            var selectedOption = (Node2D)options[i];
 
-        TargetPosition = selectedOption.GlobalPosition;
+            _flowerController = selectedOption as BaseFlowerController;
+
+            if (_flowerController.Pollinated) continue;
+
+            destination = selectedOption.GlobalPosition;
+        }
+
+        TargetPosition = destination;
     }
 
     // Called when the node enters the scene tree for the first time.

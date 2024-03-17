@@ -63,8 +63,9 @@ public partial class HiveController : Node2D, IDamagable, IDamaging
     {
         _animPlayer?.Play("Ready");
 
-        for (var i = 0; i < GameController.Instance.numOfBees; ++i)
+        for (var i = 0; i < GameController.Instance.NumOfBees; ++i)
         {
+            GD.Print("Spawning Bee");
             var spawned = _beeScene.Instantiate() as Node2D;
             AddChild(spawned);
             (spawned as BeeController)?.FindFlowerToPollinate();
