@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BugSpawnInfo" load_steps=3 format=3 uid="uid://daabk7o8mmena"]
+
+[ext_resource type="Script" path="res://assets/resources/BugSpawnInfo.cs" id="1_r0cly"]
+[ext_resource type="PackedScene" uid="uid://dxkd3ypev3bq3" path="res://scenes/characters/bugs/RhinoBeetle.tscn" id="1_y2gqd"]
+
+[resource]
+script = ExtResource("1_r0cly")
+MinimumRound = 30
+AntEquivalent = 35
+ToSpawn = ExtResource("1_y2gqd")

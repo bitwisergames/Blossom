@@ -1,29 +1,23 @@
-using System.Linq;
 using Blossom.scripts.interfaces;
 using Godot;
 
 namespace Blossom.scripts.components;
 
-public partial class MovementComponent : CharacterBody2D, IMoveable
+public partial class MovementComponent : CharacterBody2D
 {
-    private float _speed = 3000f;
+    private IMoveable _info;
 
-    public float Speed
+    public override void _Ready()
     {
-        get => _speed;
-        set => _speed = value;
+        _info = GetParent() as IMoveable;
     }
-
-    public bool Flying => false;
-
-    public Vector2 TargetPosition;
 
     public override void _PhysicsProcess(double delta)
     {
-        if (GlobalPosition.DistanceSquaredTo(TargetPosition) <= 0.1f) return;
+        if (GlobalPosition.DistanceSquaredTo(_info.TargetPosition) <= 0.1f) return;
 
-        var dir = GlobalPosition.DirectionTo(TargetPosition);
-        Velocity = dir.Normalized() * Speed * (float)delta;
+        var dir = GlobalPosition.DirectionTo(_info.TargetPosition);
+        Velocity = dir.Normalized() * _info.Speed * (float)delta;
 
         MoveAndSlide();
     }

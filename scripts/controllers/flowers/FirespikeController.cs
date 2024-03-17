@@ -1,5 +1,3 @@
-using Godot;
-
 namespace Blossom.scripts.controllers.flowers;
 
 public partial class FirespikeController : BaseFlowerController

@@ -5,7 +5,7 @@ using Godot;
 
 namespace Blossom.scripts.controllers.bugs;
 
-public abstract partial class BaseBugController : Node2D, IEnemy
+public abstract partial class BaseBugController : Node2D, IBug
 {
     private Area2D _area2D;
     private AnimationPlayer _animPlayer;
@@ -17,8 +17,11 @@ public abstract partial class BaseBugController : Node2D, IEnemy
     public abstract int Damage { get; }
     public abstract float Cooldown { get; }
 
+    public virtual float Speed => 3000.0f;
     public virtual bool Flying => false;
+    public virtual Vector2 TargetPosition => Vector2.Zero;
     public virtual bool Ranged => false;
+    public virtual bool CanTargetMultiple => false;
 
     public void Attack(Node2D target)
     {
@@ -53,6 +56,8 @@ public abstract partial class BaseBugController : Node2D, IEnemy
 
         _animPlayer = GetChild(0).GetChildren().OfType<AnimationPlayer>().First();
         _animPlayer.Play(Flying ? "BugAnimations/Fly" : "BugAnimations/Walk");
+
+        Health = MaxHealth;
     }
 
     public override void _Process(double delta)

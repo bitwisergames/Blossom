@@ -17,6 +17,7 @@ public partial class HiveController : Node2D, IDamagable, IDamaging
     public float Cooldown => 2;
     public float CooldownTimer => 2;
     public bool Ranged => false;
+    public bool CanTargetMultiple => true;
 
     public void Attack(Node2D target)
     {

@@ -7,4 +7,5 @@ public partial class DandelionController : BaseFlowerController
     public override int Damage => 2;
     public override float Cooldown => 1.5f;
     public override bool Ranged => false;
+    public override bool CanTargetMultiple => true;
 }

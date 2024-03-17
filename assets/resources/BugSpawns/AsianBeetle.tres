@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BugSpawnInfo" load_steps=3 format=3 uid="uid://dg6sc6bhce2eh"]
+
+[ext_resource type="PackedScene" uid="uid://d1662spr56hhc" path="res://scenes/characters/bugs/Ant.tscn" id="1_cobw7"]
+[ext_resource type="Script" path="res://assets/resources/BugSpawnInfo.cs" id="2_llc5t"]
+
+[resource]
+script = ExtResource("2_llc5t")
+MinimumRound = 0
+AntEquivalent = 1
+ToSpawn = ExtResource("1_cobw7")

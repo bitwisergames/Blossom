@@ -15,8 +15,11 @@ public interface IDamaging
     float CooldownTimer { get; }
 
     /// <summary>Is this ranged</summary>
-    /// <remarks>If it's not ranged, it's AOE</remarks>
+    /// <remarks>If it's not ranged, it's melee</remarks>
     bool Ranged { get; }
+
+    /// <summary>Does this target one thing or multiple things</summary>
+    bool CanTargetMultiple { get; }
 
     /// <summary>Attack single target</summary>
     void Attack(Node2D target);

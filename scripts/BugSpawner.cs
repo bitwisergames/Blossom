@@ -25,9 +25,6 @@ public partial class BugSpawner : Node2D
         if (enemyInstance!.GlobalPosition.X < 0) enemyInstance.Scale = new Vector2(-1, 1);
 
         AddChild(enemyInstance);
-
-        var movementComponent = enemyInstance.GetChild(0) as MovementComponent;
-        movementComponent!.TargetPosition = Vector2.Zero;
     }
 
     // Called when the node enters the scene tree for the first time.

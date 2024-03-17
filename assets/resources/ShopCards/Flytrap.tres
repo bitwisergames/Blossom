@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="ShopCardInfo" load_steps=4 format=3 uid="uid://dlsvjx8iypgq3"]
+[gd_resource type="Resource" script_class="ShopCardInfo" load_steps=4 format=3 uid="uid://dahnes0bw05uh"]
 
-[ext_resource type="Texture2D" uid="uid://tooobwcpiqot" path="res://assets/sprites/icons/Flytrap.png" id="1_l0x5a"]
-[ext_resource type="PackedScene" path="res://scenes/characters/flowers/Flytrap.tscn" id="2_wco0i"]
-[ext_resource type="Script" path="res://assets/resources/ShopCardInfo.cs" id="3_wpdfg"]
+[ext_resource type="Texture2D" uid="uid://bnwey5w4bolxg" path="res://assets/sprites/icons/Flytrap.png" id="1_dimga"]
+[ext_resource type="PackedScene" uid="uid://btwa4b8djy132" path="res://scenes/characters/flowers/Flytrap.tscn" id="2_w5md5"]
+[ext_resource type="Script" path="res://assets/resources/ShopCardInfo.cs" id="3_2axml"]
 
 [resource]
-script = ExtResource("3_wpdfg")
-Texture = ExtResource("1_l0x5a")
+script = ExtResource("3_2axml")
+Texture = ExtResource("1_dimga")
 Name = "Flytrap"
-Description = "This instantly eats any flying creature"
+Description = "A melee flower that instantly kills a flying bug"
 Cost = 1
-ToSpawn = ExtResource("2_wco0i")
+ToSpawn = ExtResource("2_w5md5")

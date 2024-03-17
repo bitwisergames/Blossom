@@ -1,16 +1,20 @@
-using Blossom.scripts.components;
+using System.Linq;
 using Blossom.scripts.controllers.bugs;
+using Blossom.scripts.interfaces;
 using Godot;
 
-namespace Blossom.scripts;
+namespace Blossom.scripts.controllers;
 
-public partial class Projectile : Area2D
+public partial class ProjectileController : Node2D, IMoveable
 {
-    private MovementComponent _movementComponent;
     private Node2D _target;
     private int _damage;
 
     private Timer _lifetimeTimer;
+
+    public float Speed { get; private set; }
+    public bool Flying => true;
+    public Vector2 TargetPosition { get; private set; }
 
     private void DamageTarget(Node2D body)
     {
@@ -20,14 +24,15 @@ public partial class Projectile : Area2D
 
     private void DeleteProjectile()
     {
-        GetParent().QueueFree();
-        BodyEntered -= DamageTarget;
+        QueueFree();
+        GetChild(0).GetChildren().OfType<Area2D>().First().BodyEntered -= DamageTarget;
     }
 
-    public void Setup(Node2D target, int damage)
+    public void Setup(Node2D target, int damage, float speed)
     {
         _target = target;
         _damage = damage;
+        Speed = speed;
 
         _lifetimeTimer = new Timer();
         AddChild(_lifetimeTimer);
@@ -39,20 +44,17 @@ public partial class Projectile : Area2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _movementComponent = GetParent<MovementComponent>();
-        _movementComponent.Speed = 5500;
-
-        BodyEntered += DamageTarget;
+        GetChild(0).GetChildren().OfType<Area2D>().First().BodyEntered += DamageTarget;
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (!IsInstanceValid(_movementComponent) || !IsInstanceValid(_target))
+        if (!IsInstanceValid(_target))
         {
             DeleteProjectile();
             return;
         }
 
-        _movementComponent.TargetPosition = _target.GlobalPosition;
+        TargetPosition = _target.GlobalPosition;
     }
 }

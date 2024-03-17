@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Blossom.scripts.controllers.bugs;
 using Blossom.scripts.interfaces;
 using Godot;
 
@@ -22,17 +21,19 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
 
     public virtual bool Passive => false;
     public virtual bool Ranged => true;
+    public virtual bool CanTargetMultiple => false;
 
     public virtual void Attack(Node2D target)
     {
-        if (!Ranged) return;
+        if (CanTargetMultiple) return;
+        if (!Ranged && (target as IMoveable)!.Flying) return;
 
         // Spawn Projectile
         var projectileScene = GD.Load<PackedScene>("res://scenes/Projectile.tscn").Instantiate() as Node2D;
         AddChild(projectileScene);
 
-        var projectile = projectileScene!.GetChildren().OfType<Projectile>().First();
-        projectile.Setup(target, 1);
+        var projectile = projectileScene as ProjectileController;
+        projectile?.Setup(target, 1, 5500);
         _animPlayer.Play(target.GlobalPosition.X > GlobalPosition.X
             ? "FlowerAnimations/AttackRight"
             : "FlowerAnimations/AttackLeft");
@@ -41,10 +42,11 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
 
     public virtual void Attack(List<Node2D> targets)
     {
-        if (Ranged) return;
+        if (!CanTargetMultiple) return;
 
         foreach (var target in targets)
         {
+            if (!Ranged && (target as IMoveable)!.Flying) continue;
             var parent = target.GetParent();
             (parent as IDamagable)!.InflictDamage(Damage);
         }
@@ -85,7 +87,7 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
         if (!enemies.Any()) return;
 
         // Find enemy closest to the hive
-        var enemy = enemies.OrderBy(enemy => enemy.Position.DistanceSquaredTo(Vector2.Zero)).First();
+        var enemy = enemies.OrderByDescending(enemy => enemy.Position.DistanceSquaredTo(Vector2.Zero)).First();
 
         Attack(enemy);
         Attack(enemies);
