@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0ctt2c75wmcn"]
 
-[ext_resource type="Script" path="res://scripts/controllers/flowers/LilacFlowerController.cs" id="1_cp14a"]
+[ext_resource type="Script" path="res://scripts/controllers/flowers/LilacController.cs" id="1_cp14a"]
 [ext_resource type="Texture2D" uid="uid://kb04kou071uu" path="res://assets/sprites/flowers/Lilac.png" id="1_gm3x5"]
 [ext_resource type="AnimationLibrary" uid="uid://cxulg0r14raxk" path="res://assets/animations/FlowerAnimations.res" id="3_3vxfv"]
 
@@ -14,8 +14,8 @@ script = ExtResource("1_cp14a")
 [node name="Sprite" type="Sprite2D" parent="Body"]
 texture = ExtResource("1_gm3x5")
 offset = Vector2(0, -40)
-hframes = 4
-frame = 3
+hframes = 5
+frame = 4
 
 [node name="AttackRange" type="Area2D" parent="Body"]
 collision_layer = 4

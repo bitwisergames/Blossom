@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cjvrqug4fgybi"]
 
-[ext_resource type="Script" path="res://scripts/controllers/flowers/DandelionFlowerController.cs" id="1_fi63j"]
+[ext_resource type="Script" path="res://scripts/controllers/flowers/DandelionController.cs" id="1_fi63j"]
 [ext_resource type="Texture2D" uid="uid://c531boc4v1lqt" path="res://assets/sprites/flowers/Dandelion.png" id="1_rult5"]
 [ext_resource type="AnimationLibrary" uid="uid://cxulg0r14raxk" path="res://assets/animations/FlowerAnimations.res" id="3_eq6t5"]
 
@@ -15,8 +15,8 @@ script = ExtResource("1_fi63j")
 [node name="Sprite" type="Sprite2D" parent="Body"]
 texture = ExtResource("1_rult5")
 offset = Vector2(0, -40)
-hframes = 4
-frame = 3
+hframes = 5
+frame = 4
 
 [node name="AttackRange" type="Area2D" parent="Body"]
 collision_layer = 4

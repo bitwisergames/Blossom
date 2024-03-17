@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnadbnrtmt42v"
-path="res://.godot/imported/DirtMound.png-bf4342fb8133ea202ee1f82cac7d3e52.ctex"
+uid="uid://bjagrqilk63ae"
+path="res://.godot/imported/RhinoBeetle.png-314af50db2ce3077f13022a981fa069b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/DirtMound.png"
-dest_files=["res://.godot/imported/DirtMound.png-bf4342fb8133ea202ee1f82cac7d3e52.ctex"]
+source_file="res://assets/sprites/bugs/RhinoBeetle.png"
+dest_files=["res://.godot/imported/RhinoBeetle.png-314af50db2ce3077f13022a981fa069b.ctex"]
 
 [params]
 
