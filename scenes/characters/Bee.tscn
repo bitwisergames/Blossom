@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://cl57cc1a3drn1"]
+
+[ext_resource type="Script" path="res://scripts/controllers/BeeController.cs" id="1_7xxuy"]
+[ext_resource type="Script" path="res://scripts/components/MovementComponent.cs" id="1_o086v"]
+[ext_resource type="Texture2D" uid="uid://ck0agx5jtfp2h" path="res://assets/sprites/Bee.png" id="2_bmncc"]
+[ext_resource type="AnimationLibrary" uid="uid://dh2jxjqa525y6" path="res://assets/animations/BugAnimations.res" id="3_mbmou"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ks5se"]
+size = Vector2(32, 16)
+
+[node name="Bee" type="Node2D"]
+script = ExtResource("1_7xxuy")
+
+[node name="Body" type="CharacterBody2D" parent="."]
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_o086v")
+
+[node name="Collider" type="CollisionShape2D" parent="Body"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_ks5se")
+
+[node name="Sprite" type="Sprite2D" parent="Body"]
+texture = ExtResource("2_bmncc")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
+root_node = NodePath("../Sprite")
+libraries = {
+"BugAnimations": ExtResource("3_mbmou")
+}

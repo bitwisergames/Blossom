@@ -52,8 +52,9 @@ public partial class ShopItemUIController : MarginContainer
 
     public void OnButtonUp()
     {
-        if (GameController.Instance.SpendPollen(CardInfo.isFree ? 0 : CardInfo.Cost))
+        if (GameController.Instance.SpendPollen(this.CardInfo.isFree ? 0 : CardInfo.Cost))
         {
+            ShopController.Instance.UpdatePollenCounter();
             GameController.Instance.SetPlantScene(CardInfo.ToSpawn, ClearCard);
         }
     }

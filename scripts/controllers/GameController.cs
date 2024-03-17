@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Blossom.scripts.controllers.flowers;
 using Blossom.scripts.interfaces;
 using Godot;
 
@@ -22,6 +23,8 @@ public partial class GameController : Node2D
     public static GameController Instance;
     public Random Rand;
     public bool WaveReadyToStart { get; private set; } = true;
+
+    public int numOfBees = 1;
 
     public int Pollen { get; private set; }
     public int WaveNumber = 1;
@@ -71,6 +74,13 @@ public partial class GameController : Node2D
 
         AddChild(_spawnTimer);
         _spawnTimer.Start();
+    }
+
+    public void AddPollen(int amount)
+    {
+        if (amount < 0) return;
+
+        Pollen += amount;
     }
 
     public bool SpendPollen(int amount)
@@ -123,5 +133,15 @@ public partial class GameController : Node2D
         WaveReadyToStart = true;
         ++WaveNumber;
         ShopController.Instance.ShuffleCards(true);
+
+        var level = GameController.Instance.GetNode<Node2D>("Level");
+        var flowerController = level.GetNode<Node2D>("FlowerController");
+        var options = flowerController.GetChildren();
+
+        foreach (var option in options)
+        {
+            var flower = option as BaseFlowerController;
+            flower?.ResetPollination();
+        }
     }
 }

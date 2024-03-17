@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Blossom.scripts.components;
 using Blossom.scripts.interfaces;
 using Godot;
 
@@ -11,6 +12,7 @@ public partial class HiveController : Node2D, IDamagable, IDamaging
 
     private AnimationPlayer _animPlayer;
     private Area2D _area;
+    private PackedScene _beeScene;
 
     public int Health { get; private set; } = 100;
     public int MaxHealth => 100;
@@ -60,6 +62,13 @@ public partial class HiveController : Node2D, IDamagable, IDamaging
     public void SetReady()
     {
         _animPlayer?.Play("Ready");
+
+        for (var i = 0; i < GameController.Instance.numOfBees; ++i)
+        {
+            var spawned = _beeScene.Instantiate() as Node2D;
+            AddChild(spawned);
+            (spawned as BeeController)?.FindFlowerToPollinate();
+        }
     }
 
     // Called when the node enters the scene tree for the first time.
@@ -68,10 +77,10 @@ public partial class HiveController : Node2D, IDamagable, IDamaging
         Instance ??= this;
 
         _animPlayer = GetChildren().OfType<AnimationPlayer>().First();
-
         _animPlayer?.Play("Ready");
 
         _area = GetChildren().OfType<Area2D>().First();
+        _beeScene = GD.Load<PackedScene>("res://scenes/characters/Bee.tscn");
     }
 
     public override void _Process(double delta)

@@ -2,6 +2,10 @@ namespace Blossom.scripts.interfaces;
 
 public interface IFlower : IDamaging
 {
+    /// <summary>The damage done per stage</summary>
+    /// <remarks>Should be a 4 long int array</remarks>
+    int[] ScaledDamage { get; }
+
     /// <summary>Ignore damaging aspects if true</summary>
     bool Passive { get; }
 

@@ -15,14 +15,22 @@ public partial class ShopController : CanvasLayer
 
     private Node _shopContainer;
     private AnimationPlayer _animationPlayer;
+    private Label _pollenLabel;
+    private Button _refreshButton;
+    private Button _buyBeeButton;
 
     private bool _isShopOpen;
 
     public int CardsBought = 0;
 
-    private int FindCostFromRefreshCount()
+    private int FindCostOfRefresh()
     {
         return Mathf.CeilToInt(Mathf.Pow(_refreshCount, 3) / 3);
+    }
+
+    private int FindCostOfNewBee()
+    {
+        return Mathf.CeilToInt(Mathf.Pow(2, GameController.Instance.numOfBees));
     }
 
     private List<ShopCardInfo> GetCardsFromFolder(string rootPath)
@@ -56,6 +64,26 @@ public partial class ShopController : CanvasLayer
         item.DisplayCard();
     }
 
+    public void UpdatePollenCounter()
+    {
+        _pollenLabel.Text = GameController.Instance.Pollen + " Pollen";
+    }
+
+    public void UpdateAddBeeDisplay()
+    {
+        _buyBeeButton.Text = $"+1 Bee ({FindCostOfNewBee()})";
+    }
+
+    public void AddBee()
+    {
+        if (GameController.Instance.SpendPollen(FindCostOfNewBee()))
+        {
+            GameController.Instance.numOfBees += 1;
+            UpdatePollenCounter();
+            UpdateAddBeeDisplay();
+        }
+    }
+
     public void ShuffleCards()
     {
         ShuffleCards(false);
@@ -69,8 +97,9 @@ public partial class ShopController : CanvasLayer
             _refreshCount = 0;
         }
 
-        if (GameController.Instance.SpendPollen(FindCostFromRefreshCount()))
+        if (GameController.Instance.SpendPollen(FindCostOfRefresh()))
         {
+            UpdatePollenCounter();
             for (var i = 0; i < 3; ++i)
             {
                 if (i < 3 - CardsBought)
@@ -85,6 +114,8 @@ public partial class ShopController : CanvasLayer
 
             if (!reset)
                 ++_refreshCount;
+
+            _refreshButton.Text = "Refresh (" + FindCostOfRefresh() + ")";
         }
     }
 
@@ -119,6 +150,15 @@ public partial class ShopController : CanvasLayer
         _animationPlayer.Play("HideShop");
 
         _possibleCards = GetCardsFromFolder("res://assets/resources/ShopCards/");
+
+        _pollenLabel = GetNode<Label>("Panel/Panel/Label");
+        _pollenLabel.Text = "0 Pollen";
+
+        _refreshButton = GetNode<Button>("Panel/MarginContainer/ShopItemContainer/VBoxContainer/Refresh Shop");
+        _refreshButton.Text = "Refresh (0)";
+
+        _buyBeeButton = GetNode<Button>("Panel/MarginContainer/ShopItemContainer/VBoxContainer/Buy Bee");
+        _buyBeeButton.Text = "+1 Bee (2)";
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

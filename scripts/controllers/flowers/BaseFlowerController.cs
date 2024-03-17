@@ -10,18 +10,22 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
     protected Area2D Area;
     private AnimationPlayer _animPlayer;
 
+    public int Damage => ScaledDamage[Stage];
+
     public bool Pollinated { get; protected set; } = false;
 
-    public int Stage { get; protected set; } = -1;
+    public int Stage { get; protected set; } = 0;
     public int Pollen { get; protected set; }
     public float CooldownTimer { get; protected set; }
 
     public abstract int[] Income { get; }
     public abstract int[] Upgrade { get; }
+    public abstract int[] ScaledDamage { get; }
 
     public virtual bool Passive => false;
     public virtual bool Ranged => true;
     public virtual bool CanTargetMultiple => false;
+    public virtual float Cooldown => 0f;
 
     public virtual void Attack(Node2D target)
     {
@@ -55,16 +59,20 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
         _animPlayer.Queue("FlowerAnimations/Idle");
     }
 
-    public virtual int Damage => 0;
-    public virtual float Cooldown => 0f;
-
     public virtual bool Pollinate()
     {
         if (Pollinated) return false;
         ++Pollen;
+
+        Pollinated = true;
         // Give pollen to the player in the amount of Income[Stage]
         // I don't know if we should upgrade here, or the beginning of next round
         return true;
+    }
+
+    public void ResetPollination()
+    {
+        Pollinated = false;
     }
 
     public override void _Ready()
