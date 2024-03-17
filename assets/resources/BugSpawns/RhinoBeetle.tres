@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="BugSpawnInfo" load_steps=3 format=3 uid="uid://0u4s1hkl0c1r"]
+[gd_resource type="Resource" script_class="BugSpawnInfo" load_steps=3 format=3 uid="uid://daabk7o8mmena"]
 
-[ext_resource type="PackedScene" uid="uid://ddpgnp4aumjj8" path="res://scenes/characters/bugs/Spider.tscn" id="1_ys073"]
+[ext_resource type="PackedScene" uid="uid://dxkd3ypev3bq3" path="res://scenes/characters/bugs/RhinoBeetle.tscn" id="1_5s888"]
 [ext_resource type="Script" path="res://assets/resources/BugSpawnInfo.cs" id="2_b3i6w"]
 
 [resource]
 script = ExtResource("2_b3i6w")
-MinimumRound = 15
-AntEquivalent = 20
-ToSpawn = ExtResource("1_ys073")
+MinimumWave = 30
+AntEquivalent = 35
+ToSpawn = ExtResource("1_5s888")

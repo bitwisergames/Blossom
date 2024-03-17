@@ -1,11 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://bscauh08q7fi"]
+[gd_scene load_steps=9 format=3 uid="uid://bscauh08q7fi"]
 
 [ext_resource type="Script" path="res://scripts/controllers/GameController.cs" id="1_s0uvk"]
 [ext_resource type="PackedScene" uid="uid://5k8hlswntr5k" path="res://scenes/Level.tscn" id="1_tfy0o"]
+[ext_resource type="Resource" uid="uid://daabk7o8mmena" path="res://assets/resources/BugSpawns/RhinoBeetle.tres" id="2_3uvg1"]
 [ext_resource type="PackedScene" uid="uid://y83l1q1a41hf" path="res://scenes/ShopUI.tscn" id="2_78mpw"]
+[ext_resource type="Resource" uid="uid://dg6sc6bhce2eh" path="res://assets/resources/BugSpawns/Ant.tres" id="3_30v7k"]
+[ext_resource type="Resource" uid="uid://dlmx4jgxngquq" path="res://assets/resources/BugSpawns/AsianBeetle.tres" id="4_y2ci2"]
+[ext_resource type="Resource" uid="uid://0u4s1hkl0c1r" path="res://assets/resources/BugSpawns/Spider.tres" id="5_116kq"]
+[ext_resource type="Resource" uid="uid://cyqlfmdm61bx4" path="res://assets/resources/BugSpawns/Fly.tres" id="6_6hvr5"]
 
 [node name="Play" type="Node2D"]
 script = ExtResource("1_s0uvk")
+_bugScenes = Array[Object]([ExtResource("2_3uvg1"), ExtResource("3_30v7k"), ExtResource("4_y2ci2"), ExtResource("5_116kq"), ExtResource("6_6hvr5")])
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

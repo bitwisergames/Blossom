@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="BugSpawnInfo" load_steps=3 format=3 uid="uid://cyqlfmdm61bx4"]
+[gd_resource type="Resource" script_class="BugSpawnInfo" load_steps=3 format=3 uid="uid://0u4s1hkl0c1r"]
 
-[ext_resource type="PackedScene" uid="uid://bx5dc5odfy3ml" path="res://scenes/characters/bugs/Fly.tscn" id="1_hcehh"]
-[ext_resource type="Script" path="res://assets/resources/BugSpawnInfo.cs" id="2_hb1mc"]
+[ext_resource type="PackedScene" uid="uid://ddpgnp4aumjj8" path="res://scenes/characters/bugs/Spider.tscn" id="1_ys073"]
+[ext_resource type="Script" path="res://assets/resources/BugSpawnInfo.cs" id="2_b3i6w"]
 
 [resource]
-script = ExtResource("2_hb1mc")
-MinimumRound = 5
-AntEquivalent = 5
-ToSpawn = ExtResource("1_hcehh")
+script = ExtResource("2_b3i6w")
+MinimumWave = 15
+AntEquivalent = 20
+ToSpawn = ExtResource("1_ys073")
