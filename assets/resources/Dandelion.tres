@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopCardInfo" load_steps=4 format=3 uid="uid://d1rld30uy63dw"]
+
+[ext_resource type="Script" path="res://assets/resources/ShopCardInfo.cs" id="1_iaqp0"]
+[ext_resource type="Texture2D" uid="uid://c7lqis6788i04" path="res://assets/sprites/icons/Dandelion.png" id="1_j3lg1"]
+[ext_resource type="PackedScene" uid="uid://cjvrqug4fgybi" path="res://scenes/characters/flowers/Dandelion.tscn" id="2_flbm0"]
+
+[resource]
+script = ExtResource("1_iaqp0")
+Texture = ExtResource("1_j3lg1")
+Name = "Dandelion"
+Description = "A melee flower that replicates itself"
+Cost = 1
+ToSpawn = ExtResource("2_flbm0")

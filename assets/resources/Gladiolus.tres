@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopCardInfo" load_steps=4 format=3 uid="uid://bqgucgqbcd0od"]
+
+[ext_resource type="Script" path="res://assets/resources/ShopCardInfo.cs" id="1_prwtc"]
+[ext_resource type="Texture2D" uid="uid://bngpdjy44o8vh" path="res://assets/sprites/icons/Gladiolus.png" id="1_wto23"]
+[ext_resource type="PackedScene" uid="uid://cf5c41sh7iavj" path="res://scenes/characters/flowers/Gladiolus.tscn" id="2_fsxhu"]
+
+[resource]
+script = ExtResource("1_prwtc")
+Texture = ExtResource("1_wto23")
+Name = "Gladiolus"
+Description = "A basic ranged flower"
+Cost = 1
+ToSpawn = ExtResource("2_fsxhu")

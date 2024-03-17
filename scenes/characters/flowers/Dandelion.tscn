@@ -50,7 +50,6 @@ script = ExtResource("1_fi63j")
 [node name="Body" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="Body"]
-rotation = 0.349066
 texture = ExtResource("1_rult5")
 offset = Vector2(0, -40)
 hframes = 4

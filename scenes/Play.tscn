@@ -1,9 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bscauh08q7fi"]
+[gd_scene load_steps=4 format=3 uid="uid://bscauh08q7fi"]
 
+[ext_resource type="Script" path="res://scripts/controllers/GameController.cs" id="1_s0uvk"]
 [ext_resource type="PackedScene" uid="uid://5k8hlswntr5k" path="res://scenes/Level.tscn" id="1_tfy0o"]
+[ext_resource type="PackedScene" uid="uid://y83l1q1a41hf" path="res://scenes/ShopUI.tscn" id="2_78mpw"]
 
 [node name="Play" type="Node2D"]
+script = ExtResource("1_s0uvk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Level" parent="." instance=ExtResource("1_tfy0o")]
+
+[node name="CanvasLayer" parent="." instance=ExtResource("2_78mpw")]

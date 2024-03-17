@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopCardInfo" load_steps=4 format=3 uid="uid://dtplh4sitib8d"]
+
+[ext_resource type="Texture2D" uid="uid://b31w3rgydenof" path="res://assets/sprites/icons/Lilac.png" id="1_2krgn"]
+[ext_resource type="Script" path="res://assets/resources/ShopCardInfo.cs" id="1_ad0pv"]
+[ext_resource type="PackedScene" uid="uid://b0ctt2c75wmcn" path="res://scenes/characters/flowers/Lilac.tscn" id="2_3inbm"]
+
+[resource]
+script = ExtResource("1_ad0pv")
+Texture = ExtResource("1_2krgn")
+Name = "Lilac"
+Description = "A support flower that generates pollen"
+Cost = 1
+ToSpawn = ExtResource("2_3inbm")

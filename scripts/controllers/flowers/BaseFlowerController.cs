@@ -23,8 +23,10 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
     public virtual bool Passive => false;
     public virtual bool Ranged => true;
 
-    public void Attack(Node2D target)
+    public virtual void Attack(Node2D target)
     {
+        if (!Ranged) return;
+
         // Spawn Projectile
         var projectileScene = GD.Load<PackedScene>("res://scenes/Projectile.tscn").Instantiate() as Node2D;
         AddChild(projectileScene);
@@ -36,8 +38,10 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
         _animPlayer.Queue("Sway");
     }
 
-    public void Attack(List<Node2D> targets)
+    public virtual void Attack(List<Node2D> targets)
     {
+        if (Ranged) return;
+
         foreach (var target in targets)
         {
             var parent = target.GetParent();
@@ -76,17 +80,11 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
         var enemies = Area.GetOverlappingBodies().ToList();
         if (!enemies.Any()) return;
 
-        if (Ranged)
-        {
-            // Find enemy closest to the hive
-            var enemy = enemies.OrderBy(enemy => enemy.Position.DistanceSquaredTo(Vector2.Zero)).First();
+        // Find enemy closest to the hive
+        var enemy = enemies.OrderBy(enemy => enemy.Position.DistanceSquaredTo(Vector2.Zero)).First();
 
-            Attack(enemy);
-        }
-        else
-        {
-            Attack(enemies);
-        }
+        Attack(enemy);
+        Attack(enemies);
 
         CooldownTimer = Cooldown;
     }
