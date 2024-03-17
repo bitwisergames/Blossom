@@ -52,7 +52,7 @@ public abstract partial class BaseBugController : Node2D, IEnemy
         _area2D = GetChild(0).GetChildren().OfType<Area2D>().First();
 
         _animPlayer = GetChild(0).GetChildren().OfType<AnimationPlayer>().First();
-        _animPlayer.Play("Move");
+        _animPlayer.Play(Flying ? "BugAnimations/Fly" : "BugAnimations/Walk");
     }
 
     public override void _Process(double delta)

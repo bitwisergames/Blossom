@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cf5c41sh7iavj"]
 
-[ext_resource type="Script" path="res://scripts/controllers/flowers/GladiolusFlowerController.cs" id="1_5ha5w"]
+[ext_resource type="Script" path="res://scripts/controllers/flowers/GladiolusController.cs" id="1_5ha5w"]
 [ext_resource type="Texture2D" uid="uid://b88ekiwv0xtb8" path="res://assets/sprites/flowers/Gladiolus.png" id="1_mov1d"]
 [ext_resource type="AnimationLibrary" uid="uid://cxulg0r14raxk" path="res://assets/animations/FlowerAnimations.res" id="3_jwsyf"]
 
@@ -15,8 +15,8 @@ script = ExtResource("1_5ha5w")
 [node name="Sprite" type="Sprite2D" parent="Body"]
 texture = ExtResource("1_mov1d")
 offset = Vector2(0, -40)
-hframes = 4
-frame = 3
+hframes = 5
+frame = 4
 
 [node name="AttackRange" type="Area2D" parent="Body"]
 collision_layer = 4

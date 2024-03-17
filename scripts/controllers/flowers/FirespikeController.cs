@@ -2,7 +2,7 @@ using Godot;
 
 namespace Blossom.scripts.controllers.flowers;
 
-public partial class GladiolusFlowerController : BaseFlowerController
+public partial class FirespikeController : BaseFlowerController
 {
     public override int[] Income => [1, 1, 2, 3];
     public override int[] Upgrade => [3, 6, 9];

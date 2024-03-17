@@ -1,6 +1,6 @@
 namespace Blossom.scripts.controllers.flowers;
 
-public partial class DandelionFlowerController : BaseFlowerController
+public partial class DandelionController : BaseFlowerController
 {
     public override int[] Income => [1, 1, 2, 3];
     public override int[] Upgrade => [3, 6, 9];

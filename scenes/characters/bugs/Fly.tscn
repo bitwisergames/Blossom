@@ -1,34 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0876tpp0aydc"]
+[gd_scene load_steps=7 format=3 uid="uid://bx5dc5odfy3ml"]
 
-[ext_resource type="Script" path="res://scripts/components/MovementComponent.cs" id="1_xebl0"]
-[ext_resource type="Texture2D" uid="uid://c3arkt36xijrt" path="res://assets/sprites/bugs/Ant.png" id="2_r06ho"]
-[ext_resource type="AnimationLibrary" uid="uid://b7wyfdjcekx5g" path="res://assets/animations/BugAnimations.res" id="3_mmcho"]
+[ext_resource type="Script" path="res://scripts/components/MovementComponent.cs" id="1_mwwqs"]
+[ext_resource type="Script" path="res://scripts/controllers/bugs/FlyController.cs" id="1_yxo4i"]
+[ext_resource type="Texture2D" uid="uid://mpphopmw4bmr" path="res://assets/sprites/bugs/Fly.png" id="2_4sot7"]
+[ext_resource type="AnimationLibrary" uid="uid://b7wyfdjcekx5g" path="res://assets/animations/BugAnimations.res" id="3_mnntd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ks5se"]
-size = Vector2(28, 24)
+size = Vector2(40, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vplml"]
-radius = 22.0
+radius = 80.0
 
 [node name="Bug" type="Node2D"]
+script = ExtResource("1_yxo4i")
 
 [node name="Body" type="CharacterBody2D" parent="."]
 collision_layer = 2
 motion_mode = 1
-script = ExtResource("1_xebl0")
+script = ExtResource("1_mwwqs")
 
 [node name="Collider" type="CollisionShape2D" parent="Body"]
 shape = SubResource("RectangleShape2D_ks5se")
 
 [node name="Sprite" type="Sprite2D" parent="Body"]
-texture = ExtResource("2_r06ho")
+texture = ExtResource("2_4sot7")
 hframes = 3
 frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
 root_node = NodePath("../Sprite")
 libraries = {
-"BugAnimations": ExtResource("3_mmcho")
+"BugAnimations": ExtResource("3_mnntd")
 }
 
 [node name="Range" type="Area2D" parent="Body"]
