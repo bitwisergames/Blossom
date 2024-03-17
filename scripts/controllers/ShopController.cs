@@ -36,7 +36,7 @@ public partial class ShopController : CanvasLayer
 
     private int FindCostOfBeeUpgrade()
     {
-        return 0; //Mathf.CeilToInt(Mathf.Pow(2, 2 * GameController.Instance.BeeLevel) + 6);
+        return Mathf.CeilToInt(Mathf.Pow(2, 2 * GameController.Instance.BeeLevel) + 6);
     }
 
     private List<ShopCardInfo> GetCardsFromFolder(string rootPath)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bscauh08q7fi"]
+[gd_scene load_steps=10 format=3 uid="uid://bscauh08q7fi"]
 
 [ext_resource type="Script" path="res://scripts/controllers/GameController.cs" id="1_s0uvk"]
 [ext_resource type="PackedScene" uid="uid://5k8hlswntr5k" path="res://scenes/Level.tscn" id="1_tfy0o"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://dlmx4jgxngquq" path="res://assets/resources/BugSpawns/AsianBeetle.tres" id="4_y2ci2"]
 [ext_resource type="Resource" uid="uid://0u4s1hkl0c1r" path="res://assets/resources/BugSpawns/Spider.tres" id="5_116kq"]
 [ext_resource type="Resource" uid="uid://cyqlfmdm61bx4" path="res://assets/resources/BugSpawns/Fly.tres" id="6_6hvr5"]
+[ext_resource type="PackedScene" uid="uid://dpvhrd12ujj5e" path="res://scenes/Hud.tscn" id="9_cpacp"]
 
 [node name="Play" type="Node2D"]
 script = ExtResource("1_s0uvk")
@@ -18,3 +19,5 @@ _bugScenes = Array[Object]([ExtResource("2_3uvg1"), ExtResource("3_30v7k"), ExtR
 [node name="Level" parent="." instance=ExtResource("1_tfy0o")]
 
 [node name="ShopUI" parent="." instance=ExtResource("2_78mpw")]
+
+[node name="Hud" parent="." instance=ExtResource("9_cpacp")]
