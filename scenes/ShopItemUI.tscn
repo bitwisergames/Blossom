@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b08x24bgfgxia"]
 
 [ext_resource type="Script" path="res://scripts/controllers/ShopItemUIController.cs" id="1_8amdt"]
-[ext_resource type="Resource" uid="uid://d1rld30uy63dw" path="res://assets/resources/Dandelion.tres" id="2_5ykt0"]
+[ext_resource type="Resource" uid="uid://d1rld30uy63dw" path="res://assets/resources/ShopCards/Dandelion.tres" id="2_5ykt0"]
 
 [node name="ShopItem" type="MarginContainer"]
 anchors_preset = 15

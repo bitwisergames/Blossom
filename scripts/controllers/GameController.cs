@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Blossom.scripts.interfaces;
 using Godot;
 
 namespace Blossom.scripts.controllers;
@@ -17,9 +18,13 @@ public partial class GameController : Node2D
 
     private PackedScene _toSpawn;
 
+    private Action _onPlantCallback;
+
     public static GameController Instance;
     public Random Rand;
     public bool WaveReadyToStart { get; private set; } = true;
+
+    public int Pollen { get; private set; }
 
     private List<PackedScene> GetScenesFromFolder(string rootPath)
     {
@@ -54,9 +59,6 @@ public partial class GameController : Node2D
             ++_waveNumber;
             _spawnTimer.Stop();
             _spawnTimer.QueueFree();
-
-            HiveController.Instance.SetReady();
-            WaveReadyToStart = true;
         }
     }
 
@@ -66,7 +68,8 @@ public partial class GameController : Node2D
         {
             FlowerSpawner.Instance.PlantFlower(
                 _toSpawn,
-                GetGlobalMousePosition()
+                GetGlobalMousePosition(),
+                _onPlantCallback
             );
 
             _toSpawn = null;
@@ -86,6 +89,14 @@ public partial class GameController : Node2D
         _spawnTimer.Start();
     }
 
+    public bool SpendPollen(int amount)
+    {
+        if (amount > Pollen) return false;
+
+        Pollen -= amount;
+        return true;
+    }
+
     public void StartWave()
     {
         if (!WaveReadyToStart) return;
@@ -98,10 +109,12 @@ public partial class GameController : Node2D
         StartSpawningEnemies();
     }
 
-    public void SetPlantScene(PackedScene plantScene)
+    public void SetPlantScene(PackedScene plantScene, Action onPlantCallback)
     {
         _toSpawn = plantScene;
+        _onPlantCallback = onPlantCallback;
     }
+
 
     public override void _Ready()
     {
@@ -119,5 +132,12 @@ public partial class GameController : Node2D
         {
             HandleFlowerPlanting();
         }
+
+        var livingBugs = BugSpawner.Instance.GetChildren().OfType<IDamagable>().Count();
+
+        if (WaveReadyToStart || livingBugs > 0) return;
+
+        HiveController.Instance.SetReady();
+        WaveReadyToStart = true;
     }
 }

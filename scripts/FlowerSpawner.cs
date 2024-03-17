@@ -8,7 +8,7 @@ public partial class FlowerSpawner : Node2D
 {
     public static FlowerSpawner Instance;
 
-    public void PlantFlower(PackedScene toSpawn, Vector2 pos)
+    public void PlantFlower(PackedScene toSpawn, Vector2 pos, Action onPlantCallback)
     {
         // Will eventually be variable as to which enemy is being spawned
         var flowerInstance = toSpawn.Instantiate() as Node2D;
@@ -16,6 +16,8 @@ public partial class FlowerSpawner : Node2D
         flowerInstance!.GlobalPosition = pos;
 
         AddChild(flowerInstance);
+
+        onPlantCallback.Invoke();
     }
 
     // Called when the node enters the scene tree for the first time.

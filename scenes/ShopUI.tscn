@@ -1,10 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://y83l1q1a41hf"]
+[gd_scene load_steps=8 format=3 uid="uid://y83l1q1a41hf"]
 
-[ext_resource type="Resource" uid="uid://bqgucgqbcd0od" path="res://assets/resources/Gladiolus.tres" id="2_2lao7"]
+[ext_resource type="Script" path="res://scripts/controllers/ShopController.cs" id="1_m83km"]
+[ext_resource type="Resource" uid="uid://bqgucgqbcd0od" path="res://assets/resources/ShopCards/Gladiolus.tres" id="2_2lao7"]
 [ext_resource type="PackedScene" uid="uid://b08x24bgfgxia" path="res://scenes/ShopItemUI.tscn" id="2_3fwuk"]
-[ext_resource type="Resource" uid="uid://dtplh4sitib8d" path="res://assets/resources/Lilac.tres" id="3_ejvxk"]
+[ext_resource type="Resource" uid="uid://d1rld30uy63dw" path="res://assets/resources/ShopCards/Dandelion.tres" id="2_gcol6"]
+[ext_resource type="Resource" uid="uid://dtplh4sitib8d" path="res://assets/resources/ShopCards/Lilac.tres" id="3_ejvxk"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_x311v"]
+keycode = 82
+
+[sub_resource type="Shortcut" id="Shortcut_u0w4m"]
+events = [SubResource("InputEventKey_x311v")]
 
 [node name="ShopUI" type="CanvasLayer"]
+script = ExtResource("1_m83km")
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 12
@@ -25,20 +34,36 @@ grow_vertical = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+[node name="ShopItemContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="ShopItem1" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_3fwuk")]
+[node name="ShopItem1" parent="Panel/MarginContainer/ShopItemContainer" instance=ExtResource("2_3fwuk")]
 layout_mode = 2
 size_flags_horizontal = 3
+CardInfo = ExtResource("2_gcol6")
 
-[node name="ShopItem2" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_3fwuk")]
+[node name="ShopItem2" parent="Panel/MarginContainer/ShopItemContainer" instance=ExtResource("2_3fwuk")]
 layout_mode = 2
 size_flags_horizontal = 3
-cardInfo = ExtResource("2_2lao7")
+CardInfo = ExtResource("2_2lao7")
 
-[node name="ShopItem3" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_3fwuk")]
+[node name="ShopItem3" parent="Panel/MarginContainer/ShopItemContainer" instance=ExtResource("2_3fwuk")]
 layout_mode = 2
 size_flags_horizontal = 3
-cardInfo = ExtResource("3_ejvxk")
+CardInfo = ExtResource("3_ejvxk")
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -37.0
+offset_top = 10.0
+offset_right = -5.0
+offset_bottom = 42.0
+grow_horizontal = 0
+shortcut = SubResource("Shortcut_u0w4m")
+text = "R"
+
+[connection signal="pressed" from="Panel/Button" to="." method="ShuffleCards"]
