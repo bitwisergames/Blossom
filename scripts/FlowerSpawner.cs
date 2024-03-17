@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace Blossom.scripts;
@@ -46,7 +47,7 @@ public partial class FlowerSpawner : Node2D
         if (Input.IsActionJustPressed("Main"))
         {
             PlantFlower(
-                _flowerScenes[_rand.Next(_flowerScenes.Count)],
+                _flowerScenes[1],
                 GetGlobalMousePosition()
             );
         }

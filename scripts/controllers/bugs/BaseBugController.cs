@@ -8,6 +8,7 @@ namespace Blossom.scripts.controllers.bugs;
 public abstract partial class BaseBugController : Node2D, IEnemy
 {
     private Area2D _area2D;
+    private AnimationPlayer _animPlayer;
 
     public float CooldownTimer { get; protected set; }
     public int Health { get; protected set; }
@@ -21,17 +22,15 @@ public abstract partial class BaseBugController : Node2D, IEnemy
 
     public void Attack(Node2D target)
     {
-        throw new System.NotImplementedException();
+        (target as IDamagable)?.InflictDamage(Damage);
     }
 
     public void Attack(List<Node2D> targets)
     {
-        throw new System.NotImplementedException();
-    }
-
-    public virtual void Attack(IDamagable target)
-    {
-        target.InflictDamage(Damage);
+        foreach (var target in targets)
+        {
+            Attack(target);
+        }
     }
 
     public void InflictDamage(int amount)
@@ -45,13 +44,15 @@ public abstract partial class BaseBugController : Node2D, IEnemy
 
     public void Die()
     {
-        GD.Print("Bug ded");
-        GetParent().QueueFree();
+        QueueFree();
     }
 
     public override void _Ready()
     {
         _area2D = GetChild(0).GetChildren().OfType<Area2D>().First();
+
+        _animPlayer = GetChild(0).GetChildren().OfType<AnimationPlayer>().First();
+        _animPlayer.Play("Move");
     }
 
     public override void _Process(double delta)
@@ -60,9 +61,9 @@ public abstract partial class BaseBugController : Node2D, IEnemy
 
         if (CooldownTimer > 0f) return;
 
-        if (_area2D.GetOverlappingBodies().Count == 0) return;
+        if (!_area2D.GetOverlappingBodies().Any()) return;
 
-        //Attack(HiveController.Instance);
+        Attack(HiveController.Instance);
 
         CooldownTimer = Cooldown;
     }

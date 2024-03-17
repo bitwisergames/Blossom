@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjvrqug4fgybi"]
+[gd_scene load_steps=7 format=3 uid="uid://cjvrqug4fgybi"]
 
+[ext_resource type="Script" path="res://scripts/controllers/flowers/DandelionFlowerController.cs" id="1_fi63j"]
 [ext_resource type="Texture2D" uid="uid://c531boc4v1lqt" path="res://assets/sprites/flowers/Dandelion.png" id="1_rult5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s784k"]
@@ -7,7 +8,6 @@ radius = 64.0
 
 [sub_resource type="Animation" id="Animation_eudek"]
 resource_name = "Attack"
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -45,10 +45,12 @@ _data = {
 }
 
 [node name="Flower" type="Node2D"]
+script = ExtResource("1_fi63j")
 
 [node name="Body" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="Body"]
+rotation = 0.349066
 texture = ExtResource("1_rult5")
 offset = Vector2(0, -40)
 hframes = 4

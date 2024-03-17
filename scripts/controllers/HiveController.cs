@@ -17,19 +17,27 @@ public partial class HiveController : Sprite2D, IDamagable, IDamaging
 
     public void Attack(Node2D target)
     {
+        (target as IDamagable)?.InflictDamage(Damage);
     }
 
     public void Attack(List<Node2D> targets)
     {
+        foreach (var target in targets)
+        {
+            Attack(target);
+        }
     }
 
     public void InflictDamage(int amount)
     {
         Health -= amount;
+
+        if (Health <= 0) Die();
     }
 
     public void Die()
     {
+        GD.Print("Ded");
     }
 
     // Called when the node enters the scene tree for the first time.
@@ -40,6 +48,6 @@ public partial class HiveController : Sprite2D, IDamagable, IDamaging
 
     public void Attack(IDamagable target)
     {
-        throw new System.NotImplementedException();
+        target.InflictDamage(Damage);
     }
 }

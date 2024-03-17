@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cf5c41sh7iavj"]
+[gd_scene load_steps=7 format=3 uid="uid://cf5c41sh7iavj"]
 
+[ext_resource type="Script" path="res://scripts/controllers/flowers/GladiolusFlowerController.cs" id="1_5ha5w"]
 [ext_resource type="Texture2D" uid="uid://b88ekiwv0xtb8" path="res://assets/sprites/flowers/Gladiolus.png" id="1_mov1d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s784k"]
@@ -7,7 +8,6 @@ radius = 200.0
 
 [sub_resource type="Animation" id="Animation_eudek"]
 resource_name = "Attack"
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -45,6 +45,7 @@ _data = {
 }
 
 [node name="Flower" type="Node2D"]
+script = ExtResource("1_5ha5w")
 
 [node name="Body" type="Node2D" parent="."]
 

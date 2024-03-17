@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Blossom.scripts.controllers.bugs;
 using Blossom.scripts.interfaces;
 using Godot;
 
@@ -7,7 +8,8 @@ namespace Blossom.scripts.controllers.flowers;
 
 public abstract partial class BaseFlowerController : Node2D, IFlower
 {
-    protected Area2D Area2D;
+    protected Area2D Area;
+    private AnimationPlayer _animPlayer;
 
     public bool Pollinated { get; protected set; } = false;
 
@@ -20,6 +22,29 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
 
     public virtual bool Passive => false;
     public virtual bool Ranged => true;
+
+    public void Attack(Node2D target)
+    {
+        // Spawn Projectile
+        var projectileScene = GD.Load<PackedScene>("res://scenes/Projectile.tscn").Instantiate() as Node2D;
+        AddChild(projectileScene);
+
+        var projectile = projectileScene!.GetChildren().OfType<Projectile>().First();
+        projectile.Setup(target, 1);
+
+        _animPlayer.Play("Attack");
+        _animPlayer.Queue("Sway");
+    }
+
+    public void Attack(List<Node2D> targets)
+    {
+        foreach (var target in targets)
+        {
+            var parent = target.GetParent();
+            (parent as IDamagable)!.InflictDamage(Damage);
+        }
+    }
+
     public virtual int Damage => 0;
     public virtual float Cooldown => 0f;
 
@@ -32,20 +57,12 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
         return true;
     }
 
-    /// <summary>Called when this can attack</summary>
-    public virtual void Attack(Node2D target)
-    {
-        (target as IDamagable)?.InflictDamage(Damage);
-    }
-
-    public virtual void Attack(List<Node2D> targets)
-    {
-        foreach (var target in targets) (target as IDamagable)?.InflictDamage(Damage);
-    }
-
     public override void _Ready()
     {
-        Area2D = GetChild(0).GetChildren().OfType<Area2D>().First();
+        Area = GetChild(0).GetChildren().OfType<Area2D>().First();
+        _animPlayer = GetChild(0).GetChildren().OfType<AnimationPlayer>().First();
+
+        _animPlayer?.Play("Sway");
     }
 
     public override void _Process(double delta)
@@ -54,15 +71,16 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
 
         CooldownTimer -= (float)delta;
 
-        if (Cooldown > 0f) return;
+        if (CooldownTimer > 0f) return;
 
-        var enemies = Area2D.GetOverlappingBodies().Where(enemy => enemy is IEnemy).ToList();
+        var enemies = Area.GetOverlappingBodies().ToList();
         if (!enemies.Any()) return;
 
         if (Ranged)
         {
             // Find enemy closest to the hive
             var enemy = enemies.OrderBy(enemy => enemy.Position.DistanceSquaredTo(Vector2.Zero)).First();
+
             Attack(enemy);
         }
         else

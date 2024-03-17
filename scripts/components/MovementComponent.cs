@@ -6,18 +6,17 @@ namespace Blossom.scripts.components;
 
 public partial class MovementComponent : CharacterBody2D, IMoveable
 {
-    private AnimationPlayer _animPlayer;
+    private float _speed = 3000f;
 
-    public float Speed => 3000f;
+    public float Speed
+    {
+        get => _speed;
+        set => _speed = value;
+    }
+
     public bool Flying => false;
 
-    public Vector2 TargetPosition { private get; set; }
-
-    public override void _Ready()
-    {
-        _animPlayer = GetChildren().OfType<AnimationPlayer>().First();
-        _animPlayer.Play("Move");
-    }
+    public Vector2 TargetPosition;
 
     public override void _PhysicsProcess(double delta)
     {
