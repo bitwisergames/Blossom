@@ -1,6 +1,107 @@
-[gd_scene load_steps=2 format=3 uid="uid://0137tfvxbvlw"]
+[gd_scene load_steps=14 format=3 uid="uid://0137tfvxbvlw"]
 
 [ext_resource type="Script" path="res://scripts/controllers/MainMenuController.cs" id="1_1j8ix"]
+[ext_resource type="Texture2D" uid="uid://pxj4bvwyu3yy" path="res://assets/sprites/backgrounds/Spring.png" id="3_tv4p0"]
+[ext_resource type="Texture2D" uid="uid://b88ekiwv0xtb8" path="res://assets/sprites/flowers/Gladiolus.png" id="4_fgb1a"]
+[ext_resource type="Texture2D" uid="uid://cp0251hg0xb6t" path="res://assets/sprites/Hive.png" id="4_ywsap"]
+[ext_resource type="AnimationLibrary" uid="uid://cxulg0r14raxk" path="res://assets/animations/FlowerAnimations.res" id="5_m2xkr"]
+[ext_resource type="Texture2D" uid="uid://bktcq8g7k4i8m" path="res://assets/sprites/flowers/Flytrap.png" id="6_o82fi"]
+[ext_resource type="Texture2D" uid="uid://c531boc4v1lqt" path="res://assets/sprites/flowers/Dandelion.png" id="7_v5w8d"]
+[ext_resource type="Texture2D" uid="uid://kb04kou071uu" path="res://assets/sprites/flowers/Lilac.png" id="8_qt0u8"]
+[ext_resource type="Texture2D" uid="uid://ditayap5qvjix" path="res://assets/sprites/flowers/Firespike.png" id="9_fkxi1"]
+
+[sub_resource type="Animation" id="Animation_8783c"]
+resource_name = "Attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hive:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hive:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.499628),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(0.9, 0.9), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rryd1"]
+resource_name = "Idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hive:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hive:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.01, 1.01), Vector2(0.99, 0.99)]
+}
+
+[sub_resource type="Animation" id="Animation_wpclw"]
+resource_name = "Ready"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hive:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0523599, 0.0, 0.0523599, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hive:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.05, 1.05), Vector2(0.95, 0.95)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_konro"]
+_data = {
+"Attack": SubResource("Animation_8783c"),
+"Idle": SubResource("Animation_rryd1"),
+"Ready": SubResource("Animation_wpclw")
+}
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -11,6 +112,158 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1j8ix")
 
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(512, 512)
+
+[node name="Background" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("3_tv4p0")
+
+[node name="Hive" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("4_ywsap")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Hive"]
+libraries = {
+"": SubResource("AnimationLibrary_konro")
+}
+
+[node name="Flowers" type="Node2D" parent="Node2D"]
+
+[node name="Flower" type="Node2D" parent="Node2D/Flowers"]
+position = Vector2(-180, -48)
+
+[node name="Body" type="Node2D" parent="Node2D/Flowers/Flower"]
+
+[node name="Sprite" type="Sprite2D" parent="Node2D/Flowers/Flower/Body"]
+texture = ExtResource("7_v5w8d")
+offset = Vector2(0, -40)
+hframes = 5
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Flowers/Flower/Body"]
+libraries = {
+"FlowerAnimations": ExtResource("5_m2xkr")
+}
+autoplay = "FlowerAnimations/Idle"
+
+[node name="Flower2" type="Node2D" parent="Node2D/Flowers"]
+position = Vector2(-191, 260)
+
+[node name="Body" type="Node2D" parent="Node2D/Flowers/Flower2"]
+
+[node name="Sprite" type="Sprite2D" parent="Node2D/Flowers/Flower2/Body"]
+texture = ExtResource("4_fgb1a")
+offset = Vector2(0, -40)
+hframes = 5
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Flowers/Flower2/Body"]
+libraries = {
+"FlowerAnimations": ExtResource("5_m2xkr")
+}
+autoplay = "FlowerAnimations/Idle"
+
+[node name="Flower3" type="Node2D" parent="Node2D/Flowers"]
+position = Vector2(11, -151)
+
+[node name="Body" type="Node2D" parent="Node2D/Flowers/Flower3"]
+
+[node name="Sprite" type="Sprite2D" parent="Node2D/Flowers/Flower3/Body"]
+texture = ExtResource("4_fgb1a")
+offset = Vector2(0, -40)
+hframes = 5
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Flowers/Flower3/Body"]
+libraries = {
+"FlowerAnimations": ExtResource("5_m2xkr")
+}
+autoplay = "FlowerAnimations/Idle"
+
+[node name="Flower4" type="Node2D" parent="Node2D/Flowers"]
+position = Vector2(174, 134)
+
+[node name="Body" type="Node2D" parent="Node2D/Flowers/Flower4"]
+
+[node name="Sprite" type="Sprite2D" parent="Node2D/Flowers/Flower4/Body"]
+texture = ExtResource("4_fgb1a")
+offset = Vector2(0, -40)
+hframes = 5
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Flowers/Flower4/Body"]
+libraries = {
+"FlowerAnimations": ExtResource("5_m2xkr")
+}
+autoplay = "FlowerAnimations/Idle"
+
+[node name="Flower5" type="Node2D" parent="Node2D/Flowers"]
+position = Vector2(24, 362)
+
+[node name="Body" type="Node2D" parent="Node2D/Flowers/Flower5"]
+
+[node name="Sprite" type="Sprite2D" parent="Node2D/Flowers/Flower5/Body"]
+texture = ExtResource("8_qt0u8")
+offset = Vector2(0, -40)
+hframes = 5
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Flowers/Flower5/Body"]
+libraries = {
+"FlowerAnimations": ExtResource("5_m2xkr")
+}
+autoplay = "FlowerAnimations/Idle"
+
+[node name="Flower6" type="Node2D" parent="Node2D/Flowers"]
+position = Vector2(-220, -170)
+
+[node name="Body" type="Node2D" parent="Node2D/Flowers/Flower6"]
+
+[node name="Sprite" type="Sprite2D" parent="Node2D/Flowers/Flower6/Body"]
+texture = ExtResource("8_qt0u8")
+offset = Vector2(0, -40)
+hframes = 5
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Flowers/Flower6/Body"]
+libraries = {
+"FlowerAnimations": ExtResource("5_m2xkr")
+}
+autoplay = "FlowerAnimations/Idle"
+
+[node name="Flower7" type="Node2D" parent="Node2D/Flowers"]
+position = Vector2(331, -159)
+
+[node name="Body" type="Node2D" parent="Node2D/Flowers/Flower7"]
+
+[node name="Sprite" type="Sprite2D" parent="Node2D/Flowers/Flower7/Body"]
+texture = ExtResource("9_fkxi1")
+offset = Vector2(0, -40)
+hframes = 5
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Flowers/Flower7/Body"]
+libraries = {
+"FlowerAnimations": ExtResource("5_m2xkr")
+}
+autoplay = "FlowerAnimations/Idle"
+
+[node name="Flower8" type="Node2D" parent="Node2D/Flowers"]
+position = Vector2(-345, -294)
+
+[node name="Body" type="Node2D" parent="Node2D/Flowers/Flower8"]
+
+[node name="Sprite" type="Sprite2D" parent="Node2D/Flowers/Flower8/Body"]
+texture = ExtResource("6_o82fi")
+offset = Vector2(0, -40)
+hframes = 5
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Flowers/Flower8/Body"]
+libraries = {
+"FlowerAnimations": ExtResource("5_m2xkr")
+}
+autoplay = "FlowerAnimations/Idle"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -18,10 +271,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -21.0
-offset_top = -33.0
-offset_right = 21.0
-offset_bottom = 33.0
+offset_left = -50.0
+offset_top = 81.0
+offset_right = 50.0
+offset_bottom = 147.0
 grow_horizontal = 2
 grow_vertical = 2
 
