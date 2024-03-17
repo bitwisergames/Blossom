@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopCardInfo" load_steps=4 format=3 uid="uid://80pgfvuqn3jk"]
+
+[ext_resource type="Texture2D" uid="uid://c4iiudu5nkd2m" path="res://assets/sprites/icons/Firespike.png" id="1_2eo81"]
+[ext_resource type="Script" path="res://assets/resources/ShopCardInfo.cs" id="1_w6i86"]
+[ext_resource type="PackedScene" path="res://scenes/characters/flowers/Firespike.tscn" id="2_ubscm"]
+
+[resource]
+script = ExtResource("1_w6i86")
+Texture = ExtResource("1_2eo81")
+Name = "Firespike"
+Description = "Shoots explosive projectiles"
+Cost = 1
+ToSpawn = ExtResource("2_ubscm")
