@@ -98,8 +98,8 @@ public abstract partial class BaseFlowerController : Node2D, IFlower
 
     public override void _Process(double delta)
     {
-        if (Passive) return;
         if (_waveSpawned < GameController.Instance.WaveNumber && GameController.Instance.WaveReadyToStart) TryUpgrade();
+        if (Passive) return;
         if (Stage < 0) return;
 
 
